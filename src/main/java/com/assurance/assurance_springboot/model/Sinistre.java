@@ -31,19 +31,6 @@ import java.util.List;
 
 /**
  * Entité {@code sinistres}.
- *
- * <p>Mapping strict du schéma MySQL existant :
- * id BIGINT AUTO_INCREMENT, numero_sinistre VARCHAR(80) NOT NULL UNIQUE,
- * {@code date} DATE NOT NULL, description VARCHAR(2000) NOT NULL,
- * montant_estime DECIMAL(12,2) NULL, type_sinistre VARCHAR(120) NULL,
- * statut VARCHAR(32) NOT NULL, montant_indemnisation DECIMAL(12,2) NULL,
- * contrat_id BIGINT NOT NULL.</p>
- *
- * <p>Les contraintes CHECK {@code montant_estime >= 0},
- * {@code montant_indemnisation >= 0} et la cohérence
- * montant_indemnisation / statut sont reproduites par
- * {@code @PositiveOrZero} et {@link #isIndemnisationCoherente()} ;
- * la contrainte reste également appliquée par MySQL.</p>
  */
 @Entity
 @Table(name = "sinistres",

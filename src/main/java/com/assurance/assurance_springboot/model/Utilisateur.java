@@ -26,12 +26,6 @@ import java.util.List;
 
 /**
  * Entité {@code utilisateurs}.
- *
- * <p>Mapping strict du schéma MySQL existant :
- * id BIGINT AUTO_INCREMENT, email VARCHAR(255) NOT NULL UNIQUE,
- * mot_de_passe_hash VARCHAR(255) NOT NULL, role VARCHAR(32) NOT NULL,
- * nom VARCHAR(100) NULL, prenom VARCHAR(100) NULL, telephone VARCHAR(20) NULL,
- * adresse VARCHAR(255) NULL, date_inscription DATE NULL.</p>
  */
 @Entity
 @Table(name = "utilisateurs",

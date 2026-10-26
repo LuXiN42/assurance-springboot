@@ -22,11 +22,6 @@ import java.time.LocalDate;
 
 /**
  * Entité {@code paiements}.
- *
- * <p>Mapping strict du schéma MySQL existant :
- * id BIGINT AUTO_INCREMENT, montant DECIMAL(12,2) NOT NULL,
- * {@code date} DATE NOT NULL, mode_paiement VARCHAR(32) NULL,
- * statut VARCHAR(32) NOT NULL, contrat_id BIGINT NOT NULL.</p>
  */
 @Entity
 @Table(name = "paiements")

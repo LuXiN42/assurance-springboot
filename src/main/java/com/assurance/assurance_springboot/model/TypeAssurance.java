@@ -21,13 +21,6 @@ import java.util.Set;
 
 /**
  * Entité {@code types_assurance}.
- *
- * <p>Mapping strict du schéma MySQL existant :
- * id BIGINT AUTO_INCREMENT, nom VARCHAR(150) NOT NULL,
- * description VARCHAR(2000) NULL, prix_base DECIMAL(12,2) NULL.</p>
- *
- * <p>Table de jointure {@code type_assurance_garanties}
- * (type_assurance_id, garantie_id) reproduite à l'identique.</p>
  */
 @Entity
 @Table(name = "types_assurance")

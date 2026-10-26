@@ -18,12 +18,6 @@ import java.time.LocalDateTime;
 
 /**
  * Entité {@code pieces_justificatives}.
- *
- * <p>Mapping strict du schéma MySQL existant :
- * id BIGINT AUTO_INCREMENT, nom_original VARCHAR(255) NOT NULL,
- * nom_stocke VARCHAR(300) NOT NULL UNIQUE, type_mime VARCHAR(100) NULL,
- * taille BIGINT NOT NULL, date_depot DATETIME(6) NOT NULL,
- * sinistre_id BIGINT NOT NULL.</p>
  */
 @Entity
 @Table(name = "pieces_justificatives",

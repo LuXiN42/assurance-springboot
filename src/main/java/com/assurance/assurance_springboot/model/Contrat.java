@@ -30,17 +30,6 @@ import java.util.List;
 
 /**
  * Entité {@code contrats}.
- *
- * <p>Mapping strict du schéma MySQL existant :
- * id BIGINT AUTO_INCREMENT, numero_contrat VARCHAR(80) NOT NULL UNIQUE,
- * date_debut DATE NOT NULL, date_fin DATE NULL, prime DECIMAL(12,2) NOT NULL,
- * statut VARCHAR(32) NOT NULL, client_id BIGINT NOT NULL,
- * type_assurance_id BIGINT NOT NULL.</p>
- *
- * <p>La table de jointure {@code contrat_garanties} (contrat_id, garantie_id)
- * est reproduite à l'identique. La contrainte CHECK
- * {@code date_fin IS NULL OR date_fin > date_debut} reste portée par MySQL :
- * elle n'est pas exprimable par une annotation Jakarta Validation standard.</p>
  */
 @Entity
 @Table(name = "contrats",

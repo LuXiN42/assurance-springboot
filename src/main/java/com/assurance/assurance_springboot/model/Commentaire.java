@@ -18,11 +18,6 @@ import java.time.LocalDateTime;
 
 /**
  * Entité {@code commentaires}.
- *
- * <p>Mapping strict du schéma MySQL existant :
- * id BIGINT AUTO_INCREMENT, texte VARCHAR(2000) NOT NULL,
- * date_creation DATETIME(6) NOT NULL, auteur_id BIGINT NOT NULL,
- * sinistre_id BIGINT NOT NULL.</p>
  */
 @Entity
 @Table(name = "commentaires")

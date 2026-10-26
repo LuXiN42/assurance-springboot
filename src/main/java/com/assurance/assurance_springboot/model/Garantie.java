@@ -18,10 +18,6 @@ import java.util.Set;
 
 /**
  * Entité {@code garanties}.
- *
- * <p>Mapping strict du schéma MySQL existant :
- * id BIGINT AUTO_INCREMENT, nom VARCHAR(150) NOT NULL,
- * description VARCHAR(2000) NULL.</p>
  */
 @Entity
 @Table(name = "garanties")
