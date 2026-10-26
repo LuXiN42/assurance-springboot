@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Inscription</title>
+</head>
+<body>
+    <h1>Créer un compte client</h1>
+
+    <form th:action="@{/inscription}" th:object="${inscriptionForm}" method="post">
+        <label>Nom</label>
+        <input type="text" th:field="*{nom}">
+        <span style="color:red" th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span><br>
+
+        <label>Prénom</label>
+        <input type="text" th:field="*{prenom}">
+        <span style="color:red" th:if="${#fields.hasErrors('prenom')}" th:errors="*{prenom}"></span><br>
+
+        <label>Email</label>
+        <input type="email" th:field="*{email}">
+        <span style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span><br>
+
+        <label>Téléphone</label>
+        <input type="text" th:field="*{telephone}"><br>
+
+        <label>Adresse</label>
+        <input type="text" th:field="*{adresse}"><br>
+
+        <label>Mot de passe</label>
+        <input type="password" th:field="*{motDePasse}">
+        <span style="color:red" th:if="${#fields.hasErrors('motDePasse')}" th:errors="*{motDePasse}"></span><br>
+
+        <label>Confirmation</label>
+        <input type="password" th:field="*{confirmation}">
+        <span style="color:red" th:if="${#fields.hasErrors('confirmation')}" th:errors="*{confirmation}"></span><br>
+
+        <button type="submit">S'inscrire</button>
+    </form>
+
+    <p><a th:href="@{/login}">Déjà un compte ? Se connecter</a></p>
+</body>
+</html>
