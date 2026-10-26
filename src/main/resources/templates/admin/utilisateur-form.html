@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Utilisateur')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+<main>
+    <div th:replace="~{fragments/layout :: messages}"></div>
+    <h1 th:text="${utilisateur.id == null} ? 'Nouvel utilisateur' : 'Modifier l''utilisateur'"></h1>
+
+    <form th:action="@{/admin/utilisateurs/enregistrer}" method="post">
+        <input type="hidden" name="id" th:value="${utilisateur.id}">
+        <p><label>Nom <input name="nom" maxlength="100" required th:value="${utilisateur.nom}"></label></p>
+        <p><label>Prénom <input name="prenom" maxlength="100" required th:value="${utilisateur.prenom}"></label></p>
+        <p><label>Email <input type="email" name="email" required th:value="${utilisateur.email}"></label></p>
+        <p><label>Téléphone <input name="telephone" maxlength="20" th:value="${utilisateur.telephone}"></label></p>
+        <p><label>Adresse <input name="adresse" maxlength="255" th:value="${utilisateur.adresse}"></label></p>
+        <p><label>Mot de passe
+            <input type="password" name="motDePasse" minlength="8"
+                   th:required="${utilisateur.id == null}"
+                   th:placeholder="${utilisateur.id != null} ? 'Laisser vide pour ne pas changer'">
+        </label></p>
+        <p><label>Rôle
+            <select name="role">
+                <option th:each="r : ${roles}" th:value="${r}" th:text="${r}"
+                        th:selected="${r == utilisateur.role}"></option>
+            </select>
+        </label></p>
+        <button type="submit">Enregistrer</button>
+        <a th:href="@{/admin/utilisateurs}">Annuler</a>
+    </form>
+</main>
+</body>
+</html>

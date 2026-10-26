@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head(titre)">
+    <meta charset="UTF-8">
+    <title th:text="${titre} + ' - Assurance'">Assurance</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header th:fragment="header">
+    <div class="logo">Assurance</div>
+
+    <nav sec:authorize="hasRole('CLIENT')">
+        <a th:href="@{/client/accueil}">Accueil</a>
+        <a th:href="@{/client/contrats}">Mes contrats</a>
+        <a th:href="@{/client/sinistres}">Mes sinistres</a>
+        <a th:href="@{/client/paiements}">Mes paiements</a>
+        <a th:href="@{/client/profil}">Mon profil</a>
+        <a th:href="@{/client/assistant}">Assistant IA</a>
+    </nav>
+
+    <nav sec:authorize="hasRole('AGENT')">
+        <a th:href="@{/agent/accueil}">Accueil</a>
+        <a th:href="@{/agent/clients}">Clients</a>
+        <a th:href="@{/agent/contrats}">Contrats</a>
+        <a th:href="@{/agent/garanties}">Garanties</a>
+        <a th:href="@{/agent/sinistres}">Sinistres</a>
+        <a th:href="@{/agent/paiements}">Paiements</a>
+        <a th:href="@{/agent/statistiques}">Statistiques</a>
+    </nav>
+
+    <nav sec:authorize="hasRole('ADMIN')">
+        <a th:href="@{/admin/accueil}">Accueil</a>
+        <a th:href="@{/admin/utilisateurs}">Utilisateurs</a>
+        <a th:href="@{/admin/types}">Types d'assurance</a>
+        <a th:href="@{/admin/statistiques}">Statistiques gloables</a>
+    </nav>
+
+    <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+        <button type="submit">Se déconnecter</button>
+    </form>
+</header>
+
+<div th:fragment="messages">
+    <div class="alert alert-success" th:if="${succes}" th:text="${succes}"></div>
+    <div class="alert alert-error" th:if="${erreur}" th:text="${erreur}"></div>
+</div>
+
+</body>
+</html>

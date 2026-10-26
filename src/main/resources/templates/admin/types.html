@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Types d''assurance')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+<main>
+    <div th:replace="~{fragments/layout :: messages}"></div>
+    <h1>Types d'assurance</h1>
+    <p><a class="btn" th:href="@{/admin/types/nouveau}">+ Nouveau type</a></p>
+
+    <table>
+        <thead>
+        <tr><th>Nom</th><th>Description</th><th>Prix de base</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="t : ${types}">
+            <td th:text="${t.nom}"></td>
+            <td th:text="${t.description}"></td>
+            <td th:text="${t.prixBase} + ' €'"></td>
+            <td>
+                <a th:href="@{/admin/types/{id}/modifier(id=${t.id})}">Modifier</a>
+                <form th:action="@{/admin/types/{id}/supprimer(id=${t.id})}" method="post"
+                      style="display:inline"
+                      onsubmit="return confirm('Supprimer ce type ?');">
+                    <button type="submit">Supprimer</button>
+                </form>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(types)}"><td colspan="4">Aucun type d'assurance.</td></tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

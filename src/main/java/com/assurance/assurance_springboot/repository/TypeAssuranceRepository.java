@@ -14,10 +14,9 @@ import java.util.Optional;
 public interface TypeAssuranceRepository extends JpaRepository<TypeAssurance, Long> {
 
     Optional<TypeAssurance> findByNom(String nom);
-
     boolean existsByNom(String nom);
-
     List<TypeAssurance> findByNomContainingIgnoreCase(String fragment);
-
     List<TypeAssurance> findByNomContainingIgnoreCaseOrderByNomAsc(String fragment);
+    boolean existsByNomIgnoreCase(String nom);
+    boolean existsByNomIgnoreCaseAndIdNot(String nom, Long id);
 }

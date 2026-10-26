@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Type d''assurance')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+<main>
+    <div th:replace="~{fragments/layout :: messages}"></div>
+    <h1 th:text="${type.id == null} ? 'Nouveau type' : 'Modifier le type'"></h1>
+
+    <form th:action="@{/admin/types/enregistrer}" method="post">
+        <input type="hidden" name="id" th:value="${type.id}">
+        <p><label>Nom
+            <input name="nom" maxlength="150" required th:value="${type.nom}"></label></p>
+        <p><label>Description<br>
+            <textarea name="description" rows="4" cols="50" th:text="${type.description}"></textarea></label></p>
+        <p><label>Prix de base (€)
+            <input name="prixBase" required
+                   th:value="${prixSaisi != null} ? ${prixSaisi} : ${type.prixBase}"></label></p>
+        <button type="submit">Enregistrer</button>
+        <a th:href="@{/admin/types}">Annuler</a>
+    </form>
+</main>
+</body>
+</html>

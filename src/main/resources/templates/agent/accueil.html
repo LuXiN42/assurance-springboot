@@ -1,15 +1,12 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Espace agent</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Accueil agent')}"></head>
 <body>
+<header th:replace="~{fragments/layout :: header}"></header>
+<main>
+    <div th:replace="~{fragments/layout :: messages}"></div>
     <h1>Bonjour <span th:text="${prenom}">Prénom</span> !</h1>
-    <p>Espace agent</p>
-
-    <form th:action="@{/logout}" method="post">
-        <button type="submit">Se déconnecter</button>
-    </form>
+    <div class="card">Espace agent</div>
+</main>
 </body>
 </html>

@@ -4,42 +4,54 @@ import com.assurance.assurance_springboot.model.Contrat;
 import com.assurance.assurance_springboot.model.Paiement;
 import com.assurance.assurance_springboot.model.StatutPaiement;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
-/**
- * Accès aux données de la table {@code paiements}.
- */
+/** Accès aux données des paiements. */
 @Repository
 public interface PaiementRepository extends JpaRepository<Paiement, Long> {
+    @Override
+    @EntityGraph(attributePaths = {"contrat", "contrat.client", "contrat.typeAssurance"})
+    List<Paiement> findAll();
 
+    @Override
+    @EntityGraph(attributePaths = {"contrat", "contrat.client", "contrat.typeAssurance"})
+    java.util.Optional<Paiement> findById(Long id);
+
+    @EntityGraph(attributePaths = {"contrat", "contrat.client", "contrat.typeAssurance"})
     List<Paiement> findByContrat(Contrat contrat);
-
     List<Paiement> findByContratId(Long contratId);
-
+    @EntityGraph(attributePaths = {"contrat", "contrat.client", "contrat.typeAssurance"})
     List<Paiement> findByContratIdOrderByDateDesc(Long contratId);
-
+    @EntityGraph(attributePaths = {"contrat", "contrat.client", "contrat.typeAssurance"})
     List<Paiement> findByStatut(StatutPaiement statut);
-
     List<Paiement> findByStatutAndContratId(StatutPaiement statut, Long contratId);
-
     long countByStatut(StatutPaiement statut);
 
-    /**
-     * Somme des montants payés pour un contrat donné.
-     */
+    @EntityGraph(attributePaths = {"contrat", "contrat.client", "contrat.typeAssurance"})
+    List<Paiement> findByContratClientIdOrderByDateDesc(Long clientId);
+    @EntityGraph(attributePaths = {"contrat", "contrat.client", "contrat.typeAssurance"})
+    List<Paiement> findByContratClientIdAndStatutOrderByDateDesc(Long clientId, StatutPaiement statut);
+
+    /** Échéances EN_ATTENTE à venir dans la période incluse pour un client. */
+    @EntityGraph(attributePaths = {"contrat", "contrat.client", "contrat.typeAssurance"})
+    @Query("select p from Paiement p where p.contrat.client.id = :clientId "
+         + "and p.statut = :statut and p.date between :debut and :fin order by p.date asc")
+    List<Paiement> findEcheances(@Param("clientId") Long clientId,
+                                 @Param("statut") StatutPaiement statut,
+                                 @Param("debut") LocalDate debut,
+                                 @Param("fin") LocalDate fin);
+
     @Query("select coalesce(sum(p.montant), 0) from Paiement p where p.contrat.id = :contratId")
     BigDecimal sumMontantByContratId(@Param("contratId") Long contratId);
 
-    /**
-     * Somme des montants effectivement réglés (statut EFFECTUE) pour un contrat donné.
-     */
-    @Query("select coalesce(sum(p.montant), 0) from Paiement p "
-            + "where p.contrat.id = :contratId and p.statut = :statut")
+    @Query("select coalesce(sum(p.montant), 0) from Paiement p where p.contrat.id = :contratId and p.statut = :statut")
     BigDecimal sumMontantByContratIdAndStatut(@Param("contratId") Long contratId,
                                               @Param("statut") StatutPaiement statut);
 }

@@ -48,6 +48,9 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/login?deconnecte")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
+            )
+            .exceptionHandling(e -> e
+                .accessDeniedPage("/acces-refuse")
             );
         return http.build();
     }

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Utilisateurs')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+<main>
+    <div th:replace="~{fragments/layout :: messages}"></div>
+    <h1>Utilisateurs</h1>
+    <p><a class="btn" th:href="@{/admin/utilisateurs/nouveau}">+ Nouvel utilisateur</a></p>
+
+    <table>
+        <thead>
+        <tr><th>Nom</th><th>Prénom</th><th>Email</th><th>Téléphone</th><th>Rôle</th><th>Inscription</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="u : ${utilisateurs}">
+            <td th:text="${u.nom}"></td>
+            <td th:text="${u.prenom}"></td>
+            <td th:text="${u.email}"></td>
+            <td th:text="${u.telephone}"></td>
+            <td th:text="${u.role}"></td>
+            <td th:text="${#temporals.format(u.dateInscription, 'dd/MM/yyyy')}"></td>
+            <td>
+                <a th:href="@{/admin/utilisateurs/{id}/modifier(id=${u.id})}">Modifier</a>
+                <form th:action="@{/admin/utilisateurs/{id}/supprimer(id=${u.id})}" method="post"
+                      style="display:inline"
+                      onsubmit="return confirm('Supprimer cet utilisateur ?');">
+                    <button type="submit">Supprimer</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

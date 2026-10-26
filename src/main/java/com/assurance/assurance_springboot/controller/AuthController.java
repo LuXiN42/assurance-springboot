@@ -67,4 +67,8 @@ public class AuthController {
         redirectAttributes.addFlashAttribute("inscriptionOk", true);
         return "redirect:/login";
     }
+    @GetMapping("/acces-refuse")
+    public String accesRefuse() {
+        return "acces-refuse";
+}
 }

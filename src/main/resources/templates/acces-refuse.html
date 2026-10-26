@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Accès refusé')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+<main>
+    <div class="card">
+        <h1>Accès refusé</h1>
+        <p>Vous n'avez pas les droits pour accéder à cette page.</p>
+        <a class="btn" th:href="@{/}">Retour à l'accueil</a>
+    </div>
+</main>
+</body>
+</html>
