@@ -1,0 +1,16 @@
+# Maven / build
+*/target/
+target/
+*.war
+*.jar
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# Secrets
+*/src/main/resources/application.properties
