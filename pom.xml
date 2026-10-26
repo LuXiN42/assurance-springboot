@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.assurance</groupId>
-	<artifactId>assurance-springboot9</artifactId>
+	<artifactId>assurance-springboot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name/>
 	<description/>

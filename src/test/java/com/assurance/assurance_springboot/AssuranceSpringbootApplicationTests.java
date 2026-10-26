@@ -1,4 +1,4 @@
-package com.assurance.assurance_springboot9;
+package com.assurance.assurance_springboot;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
