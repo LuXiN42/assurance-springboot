@@ -1,12 +1,110 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/layout :: head('Accueil client')}"></head>
+
+<head th:replace="~{fragments/layout :: head('Espace client')}"></head>
+
 <body>
-<header th:replace="~{fragments/layout :: header}"></header>
-<main>
-    <div th:replace="~{fragments/layout :: messages}"></div>
-    <h1>Bonjour <span th:text="${prenom}">Prénom</span> !</h1>
-    <div class="card">Espace client</div>
-</main>
+
+    <header th:replace="~{fragments/layout :: header}"></header>
+
+    <main>
+
+        <div th:replace="~{fragments/layout :: messages}"></div>
+
+        <h1>
+            Bonjour <span th:text="${prenom}">Client</span> !
+        </h1>
+
+        <p>Bienvenue dans votre espace personnel.</p>
+
+        <section class="grid">
+
+            <article class="card">
+                <h2>Mes contrats</h2>
+                <p th:text="${nombreContrats}">0</p>
+                <a class="btn" th:href="@{/client/contrats}">
+                    Consulter
+                </a>
+            </article>
+
+            <article class="card">
+                <h2>Mes sinistres</h2>
+                <p th:text="${nombreSinistres}">0</p>
+                <a class="btn" th:href="@{/client/sinistres}">
+                    Suivre
+                </a>
+            </article>
+
+            <article class="card">
+                <h2>Paiements en attente</h2>
+                <p th:text="${nombrePaiementsEnAttente}">0</p>
+                <a class="btn" th:href="@{/client/paiements}">
+                    Voir mes paiements
+                </a>
+            </article>
+
+        </section>
+
+        <section class="card">
+
+            <h2>Déclarer un sinistre</h2>
+
+            <p>
+                Signalez un événement lié à l'un de vos contrats actifs.
+            </p>
+
+            <a class="btn" th:href="@{/client/sinistres/nouveau}">
+                Nouvelle déclaration
+            </a>
+
+        </section>
+
+        <section class="card">
+
+            <h2>Derniers sinistres</h2>
+
+            <p th:if="${#lists.isEmpty(sinistresRecents)}">
+                Aucun sinistre déclaré.
+            </p>
+
+            <table th:unless="${#lists.isEmpty(sinistresRecents)}">
+
+                <thead>
+                    <tr>
+                        <th>Numéro</th>
+                        <th>Date</th>
+                        <th>Statut</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="sinistre : ${sinistresRecents}">
+                        <td th:text="${sinistre.numeroSinistre}"></td>
+                        <td th:text="${sinistre.date}"></td>
+                        <td th:text="${sinistre.statut}"></td>
+                        <td>
+                            <a th:href="@{/client/sinistres/{id}(id=${sinistre.id})}">
+                                Détail
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </section>
+
+    </main>
+
+    <script
+        type="module"
+        src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092"
+        integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw=="
+        data-cf-beacon='{"version":"2024.11.0","token":"8607d2a720d14b038279025b2b5a82e5","spa":2}'
+        crossorigin="anonymous">
+    </script>
+
 </body>
+
 </html>

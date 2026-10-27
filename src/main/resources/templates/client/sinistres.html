@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('Mes sinistres')}"></head>
+
+<body>
+
+    <header th:replace="~{fragments/layout :: header}"></header>
+
+    <main>
+
+        <div th:replace="~{fragments/layout :: messages}"></div>
+
+        <h1>Mes sinistres</h1>
+
+        <p>
+            <a class="btn" th:href="@{/client/sinistres/nouveau}">
+                + Déclarer un sinistre
+            </a>
+        </p>
+
+        <p th:if="${#lists.isEmpty(sinistres)}">
+            Aucune déclaration enregistrée.
+        </p>
+
+        <table th:unless="${#lists.isEmpty(sinistres)}">
+
+            <thead>
+                <tr>
+                    <th>Numéro</th>
+                    <th>Date</th>
+                    <th>Contrat</th>
+                    <th>Type</th>
+                    <th>Statut</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr th:each="sinistre : ${sinistres}">
+                    <td th:text="${sinistre.numeroSinistre}"></td>
+                    <td th:text="${sinistre.date}"></td>
+                    <td th:text="${sinistre.contrat.numeroContrat}"></td>
+
+                    <td th:text="${sinistre.typeSinistre != null ? sinistre.typeSinistre : '—'}"></td>
+
+                    <td>
+                        <span
+                            class="badge"
+                            th:text="${sinistre.statut}">
+                        </span>
+                    </td>
+
+                    <td>
+                        <a th:href="@{/client/sinistres/{id}(id=${sinistre.id})}">
+                            Suivre
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+
+    </main>
+
+    <script
+        type="module"
+        src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092"
+        integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw=="
+        data-cf-beacon='{"version":"2024.11.0","token":"8607d2a720d14b038279025b2b5a82e5","spa":2}'
+        crossorigin="anonymous">
+    </script>
+
+</body>
+
+</html>

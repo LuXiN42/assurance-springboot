@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('Détail de contrat')}"></head>
+
+<body>
+
+    <header th:replace="~{fragments/layout :: header}"></header>
+
+    <main>
+
+        <div th:replace="~{fragments/layout :: messages}"></div>
+
+        <p>
+            <a th:href="@{/client/contrats}">← Mes contrats</a>
+        </p>
+
+        <h1>
+            Contrat <span th:text="${contrat.numeroContrat}"></span>
+        </h1>
+
+        <section class="card">
+
+            <p>
+                Type d'assurance :
+                <strong th:text="${contrat.typeAssurance.nom}"></strong>
+            </p>
+
+            <p
+                th:if="${contrat.typeAssurance.description != null}"
+                th:text="${contrat.typeAssurance.description}">
+            </p>
+
+            <p>
+                Période :
+                <span th:text="${contrat.dateDebut}"></span>
+                —
+                <span th:text="${contrat.dateFin != null ? contrat.dateFin : 'Sans date de fin'}"></span>
+            </p>
+
+            <p>
+                Prime :
+                <span th:text="${contrat.prime}"></span>
+            </p>
+
+            <p>
+                Statut :
+                <span class="badge" th:text="${contrat.statut}"></span>
+            </p>
+
+        </section>
+
+        <section class="card">
+
+            <h2>Garanties</h2>
+
+            <ul>
+
+                <li th:each="garantie : ${contrat.garanties}">
+                    <strong th:text="${garantie.nom}"></strong>
+
+                    <span
+                        th:if="${garantie.description != null}"
+                        th:text="${' — ' + garantie.description}">
+                    </span>
+                </li>
+
+                <li th:if="${#lists.isEmpty(contrat.garanties)}">
+                    Aucune garantie renseignée.
+                </li>
+
+            </ul>
+
+        </section>
+
+        <p>
+            <a
+                class="btn"
+                th:href="@{/client/sinistres/nouveau(contratId=${contrat.id})}"
+                th:if="${contrat.statut.name() == 'ACTIF'}">
+                Déclarer un sinistre
+            </a>
+        </p>
+
+    </main>
+
+    <script
+        type="module"
+        src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092"
+        integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw=="
+        data-cf-beacon='{"version":"2024.11.0","token":"8607d2a720d14b038279025b2b5a82e5","spa":2}'
+        crossorigin="anonymous">
+    </script>
+
+</body>
+
+</html>

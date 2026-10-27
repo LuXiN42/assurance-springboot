@@ -20,6 +20,10 @@ public interface SinistreRepository extends JpaRepository<Sinistre, Long> {
     @Query("select distinct s from Sinistre s where s.statut = :statut") List<Sinistre> findByStatutComplet(@Param("statut") StatutSinistre statut);
     @EntityGraph(attributePaths={"contrat", "contrat.client", "contrat.typeAssurance"})
     @Query("select distinct s from Sinistre s where s.id = :id") Optional<Sinistre> findCompletById(@Param("id") Long id);
+    /** Recherche une déclaration appartenant au client connecté. */
+    @EntityGraph(attributePaths={"contrat", "contrat.client", "contrat.typeAssurance"})
+    Optional<Sinistre> findByIdAndContratClientId(Long id, Long clientId);
+
     Optional<Sinistre> findByNumeroSinistre(String numeroSinistre);
     boolean existsByNumeroSinistre(String numeroSinistre);
     List<Sinistre> findByContrat(Contrat contrat);

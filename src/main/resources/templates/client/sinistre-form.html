@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('Déclarer un sinistre')}"></head>
+
+<body>
+
+    <header th:replace="~{fragments/layout :: header}"></header>
+
+    <main>
+
+        <div th:replace="~{fragments/layout :: messages}"></div>
+
+        <h1>Déclarer un sinistre</h1>
+
+        <p>
+            Seuls les contrats actifs sont proposés.
+            Les pièces jointes sont limitées à 5 fichiers (10 Mo chacun).
+        </p>
+
+        <form
+            method="post"
+            enctype="multipart/form-data"
+            th:action="@{/client/sinistres}"
+            th:object="${form}">
+
+            <label>
+                Contrat actif
+
+                <select th:field="*{contratId}" required>
+
+                    <option value="">Choisir un contrat</option>
+
+                    <option
+                        th:each="contrat : ${contrats}"
+                        th:value="${contrat.id}"
+                        th:text="${contrat.numeroContrat + ' — ' + contrat.typeAssurance.nom}">
+                    </option>
+
+                </select>
+
+            </label>
+
+            <p class="erreur" th:if="${#lists.isEmpty(contrats)}">
+                Aucun contrat actif disponible.
+            </p>
+
+            <label>
+                Date du sinistre
+
+                <input
+                    type="date"
+                    th:field="*{date}"
+                    required
+                    th:attr="max=${dateMaximum}" />
+            </label>
+
+            <label>
+                Type de sinistre
+
+                <input
+                    type="text"
+                    th:field="*{typeSinistre}"
+                    maxlength="120" />
+            </label>
+
+            <label>
+                Montant estimé
+
+                <input
+                    type="number"
+                    th:field="*{montantEstime}"
+                    min="0"
+                    step="0.01" />
+            </label>
+
+            <label>
+                Description
+
+                <textarea
+                    th:field="*{description}"
+                    minlength="10"
+                    maxlength="2000"
+                    rows="6"
+                    required></textarea>
+            </label>
+
+            <label>
+                Pièces justificatives (PDF, PNG, JPG, DOC, DOCX)
+
+                <input
+                    type="file"
+                    name="fichiers"
+                    multiple
+                    accept=".pdf,.png,.jpg,.jpeg,.doc,.docx" />
+            </label>
+
+            <p>
+                <button
+                    class="btn"
+                    type="submit"
+                    th:disabled="${#lists.isEmpty(contrats)}">
+                    Envoyer la déclaration
+                </button>
+
+                <a th:href="@{/client/sinistres}">
+                    Annuler
+                </a>
+            </p>
+
+        </form>
+
+    </main>
+
+    <script
+        type="module"
+        src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092"
+        integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw=="
+        data-cf-beacon='{"version":"2024.11.0","token":"8607d2a720d14b038279025b2b5a82e5","spa":2}'
+        crossorigin="anonymous">
+    </script>
+
+</body>
+
+</html>

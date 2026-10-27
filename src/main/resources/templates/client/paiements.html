@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('Mes paiements et échéances')}"></head>
+
+<body>
+
+    <header th:replace="~{fragments/layout :: header}"></header>
+
+    <main>
+
+        <div th:replace="~{fragments/layout :: messages}"></div>
+
+        <h1>Mes paiements et échéances</h1>
+
+        <section class="card">
+
+            <h2>Échéances en attente</h2>
+
+            <p th:if="${#lists.isEmpty(echeances)}">
+                Aucune échéance en attente.
+            </p>
+
+            <table th:unless="${#lists.isEmpty(echeances)}">
+
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Contrat</th>
+                        <th>Montant</th>
+                        <th>Statut</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="paiement : ${echeances}">
+                        <td th:text="${paiement.date}"></td>
+                        <td th:text="${paiement.contrat.numeroContrat}"></td>
+                        <td th:text="${paiement.montant}"></td>
+                        <td th:text="${paiement.statut}"></td>
+
+                        <td>
+                            <a th:href="@{/client/paiements/{id}(id=${paiement.id})}">
+                                Détail
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </section>
+
+        <section class="card">
+
+            <h2>Historique</h2>
+
+            <p th:if="${#lists.isEmpty(paiements)}">
+                Aucun paiement enregistré.
+            </p>
+
+            <table th:unless="${#lists.isEmpty(paiements)}">
+
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Contrat</th>
+                        <th>Montant</th>
+                        <th>Mode</th>
+                        <th>Statut</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="paiement : ${paiements}">
+                        <td th:text="${paiement.date}"></td>
+                        <td th:text="${paiement.contrat.numeroContrat}"></td>
+                        <td th:text="${paiement.montant}"></td>
+
+                        <td th:text="${paiement.modePaiement != null ? paiement.modePaiement : '—'}"></td>
+
+                        <td>
+                            <span
+                                class="badge"
+                                th:text="${paiement.statut}">
+                            </span>
+                        </td>
+
+                        <td>
+                            <a th:href="@{/client/paiements/{id}(id=${paiement.id})}">
+                                Détail
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </section>
+
+    </main>
+
+    <script
+        type="module"
+        src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092"
+        integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw=="
+        data-cf-beacon='{"version":"2024.11.0","token":"8607d2a720d14b038279025b2b5a82e5","spa":2}'
+        crossorigin="anonymous">
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('Mon profil')}"></head>
+
+<body>
+
+    <header th:replace="~{fragments/layout :: header}"></header>
+
+    <main>
+
+        <div th:replace="~{fragments/layout :: messages}"></div>
+
+        <h1>Mon profil</h1>
+
+        <section class="card">
+
+            <h2>Informations personnelles</h2>
+
+            <form method="post" th:action="@{/client/profil}">
+
+                <label>
+                    Nom
+                    <input
+                        name="nom"
+                        required
+                        maxlength="100"
+                        th:value="${utilisateur.nom}" />
+                </label>
+
+                <label>
+                    Prénom
+                    <input
+                        name="prenom"
+                        required
+                        maxlength="100"
+                        th:value="${utilisateur.prenom}" />
+                </label>
+
+                <label>
+                    Email
+                    <input
+                        type="email"
+                        name="email"
+                        required
+                        maxlength="255"
+                        th:value="${utilisateur.email}" />
+                </label>
+
+                <label>
+                    Téléphone
+                    <input
+                        name="telephone"
+                        maxlength="20"
+                        th:value="${utilisateur.telephone}" />
+                </label>
+
+                <label>
+                    Adresse
+                    <input
+                        name="adresse"
+                        maxlength="255"
+                        th:value="${utilisateur.adresse}" />
+                </label>
+
+                <p>
+                    <button class="btn" type="submit">
+                        Enregistrer mes informations
+                    </button>
+                </p>
+
+            </form>
+
+        </section>
+
+        <section class="card">
+
+            <h2>Changer mon mot de passe</h2>
+
+            <form method="post" th:action="@{/client/profil/mot-de-passe}">
+
+                <label>
+                    Mot de passe actuel
+                    <input
+                        type="password"
+                        name="motDePasseActuel"
+                        required
+                        autocomplete="current-password" />
+                </label>
+
+                <label>
+                    Nouveau mot de passe (8 caractères minimum)
+                    <input
+                        type="password"
+                        name="nouveauMotDePasse"
+                        required
+                        minlength="8"
+                        autocomplete="new-password" />
+                </label>
+
+                <label>
+                    Confirmer le nouveau mot de passe
+                    <input
+                        type="password"
+                        name="confirmationMotDePasse"
+                        required
+                        minlength="8"
+                        autocomplete="new-password" />
+                </label>
+
+                <p>
+                    <button class="btn" type="submit">
+                        Changer le mot de passe
+                    </button>
+                </p>
+
+            </form>
+
+        </section>
+
+    </main>
+
+    <script
+        type="module"
+        src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092"
+        integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw=="
+        data-cf-beacon='{"version":"2024.11.0","token":"8607d2a720d14b038279025b2b5a82e5","spa":2}'
+        crossorigin="anonymous">
+    </script>
+
+</body>
+
+</html>

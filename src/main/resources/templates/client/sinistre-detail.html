@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('Suivi du sinistre')}"></head>
+
+<body>
+
+    <header th:replace="~{fragments/layout :: header}"></header>
+
+    <main>
+
+        <div th:replace="~{fragments/layout :: messages}"></div>
+
+        <p>
+            <a th:href="@{/client/sinistres}">← Mes sinistres</a>
+        </p>
+
+        <h1>
+            Sinistre <span th:text="${sinistre.numeroSinistre}"></span>
+        </h1>
+
+        <section class="card">
+
+            <p>
+                Date :
+                <span th:text="${sinistre.date}"></span>
+            </p>
+
+            <p>
+                Contrat :
+                <a
+                    th:href="@{/client/contrats/{id}(id=${sinistre.contrat.id})}"
+                    th:text="${sinistre.contrat.numeroContrat}">
+                </a>
+            </p>
+
+            <p>
+                Type :
+                <span th:text="${sinistre.typeSinistre != null ? sinistre.typeSinistre : '—'}"></span>
+            </p>
+
+            <p>
+                Description :
+                <span th:text="${sinistre.description}"></span>
+            </p>
+
+            <p>
+                Montant estimé :
+                <span th:text="${sinistre.montantEstime != null ? sinistre.montantEstime : '—'}"></span>
+            </p>
+
+            <p>
+                Statut :
+                <span class="badge" th:text="${sinistre.statut}"></span>
+            </p>
+
+            <p th:if="${sinistre.montantIndemnisation != null}">
+                Indemnisation :
+                <span th:text="${sinistre.montantIndemnisation}"></span>
+            </p>
+
+        </section>
+
+        <section class="card">
+
+            <h2>Pièces justificatives</h2>
+
+            <ul>
+
+                <li th:each="piece : ${sinistre.pieces}">
+                    <a
+                        th:href="@{/client/pieces/{id}/telecharger(id=${piece.id})}"
+                        th:text="${piece.nomOriginal}">
+                    </a>
+
+                    —
+                    <span th:text="${piece.dateDepot}"></span>
+                </li>
+
+                <li th:if="${#lists.isEmpty(sinistre.pieces)}">
+                    Aucune pièce jointe.
+                </li>
+
+            </ul>
+
+        </section>
+
+        <section class="card">
+
+            <h2>Échanges et commentaires</h2>
+
+            <p>
+                Les commentaires ajoutés au dossier par l'équipe sont visibles ci-dessous.
+            </p>
+
+            <ul>
+
+                <li th:each="commentaire : ${sinistre.commentaires}">
+
+                    <strong
+                        th:text="${commentaire.auteur.prenom + ' ' + commentaire.auteur.nom}">
+                    </strong>
+
+                    —
+
+                    <time th:text="${commentaire.dateCreation}"></time>
+
+                    <p th:text="${commentaire.texte}"></p>
+
+                </li>
+
+                <li th:if="${#lists.isEmpty(sinistre.commentaires)}">
+                    Aucun commentaire pour le moment.
+                </li>
+
+            </ul>
+
+        </section>
+
+    </main>
+
+    <script
+        type="module"
+        src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092"
+        integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw=="
+        data-cf-beacon='{"version":"2024.11.0","token":"8607d2a720d14b038279025b2b5a82e5","spa":2}'
+        crossorigin="anonymous">
+    </script>
+
+</body>
+
+</html>

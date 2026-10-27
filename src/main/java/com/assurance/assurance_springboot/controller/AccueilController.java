@@ -20,12 +20,6 @@ public class AccueilController {
         return "redirect:/login";
     }
 
-    @GetMapping("/client/accueil")
-    public String accueilClient(@AuthenticationPrincipal UtilisateurPrincipal principal, Model model) {
-        model.addAttribute("prenom", principal.getPrenom());
-        return "client/accueil";
-    }
-
     @GetMapping("/agent/accueil")
     public String accueilAgent(@AuthenticationPrincipal UtilisateurPrincipal principal, Model model) {
         model.addAttribute("prenom", principal.getPrenom());
