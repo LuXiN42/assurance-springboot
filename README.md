@@ -25,20 +25,69 @@ cd assurance-springboot
 ```
 
 ### 3. Créer la base de données
-Dans un client MySQL connecté en root :
+#### 3.1 Vérifier que MySQL est installé et démarré
+Vérifier l'installation :
+```bash
+mysql --version
+```
+Démarrer le service selon votre système :
+- Linux : `sudo systemctl start mysql` ; vérifier son état avec `sudo systemctl status mysql`.
+- macOS : `brew services start mysql`.
+- Windows : ouvrir Services, sélectionner MySQL80 et cliquer sur Démarrer (ou démarrer MySQL via XAMPP/WAMP).
+
+#### 3.2 Se connecter à MySQL en root
+Dans un terminal, se connecter avec :
+```bash
+mysql -u root -p
+```
+Saisir le mot de passe root défini lors de l'installation. Rien ne s'affiche pendant la saisie du mot de passe. Sous Linux, si l'accès est refusé, essayer :
+```bash
+sudo mysql
+```
+Une fois connecté, l'invite devient `mysql>`. On peut aussi utiliser un client graphique (MySQL Workbench, DBeaver ou phpMyAdmin) en se connectant à `localhost:3306` avec l'utilisateur `root`.
+
+#### 3.3 Créer la base et l'utilisateur
+Dans l'invite `mysql>`, exécuter :
 ```sql
 CREATE DATABASE assurance_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 CREATE USER 'assurance'@'localhost' IDENTIFIED BY 'assuranceGroupeO';
 GRANT ALL PRIVILEGES ON assurance_db.* TO 'assurance'@'localhost';
 FLUSH PRIVILEGES;
+EXIT;
 ```
 
-Les tables sont créées automatiquement par Hibernate au premier démarrage (`spring.jpa.hibernate.ddl-auto=update`).
-Pour charger les données de démonstration, si le script est fourni :
+#### 3.4 Vérifier la connexion avec le nouvel utilisateur
+Dans un terminal, exécuter :
+```bash
+mysql -u assurance -p assurance_db
+```
+Saisir le mot de passe `assuranceGroupeO`. Si l'invite `mysql>` s'affiche, la connexion est opérationnelle. Pour quitter MySQL, exécuter `EXIT;`.
+
+#### 3.5 Configurer l'application
+La configuration se trouve dans `src/main/resources/application.properties` :
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/assurance_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+spring.datasource.username=assurance
+spring.datasource.password=assuranceGroupeO
+```
+Modifier ces valeurs si vous utilisez un autre utilisateur ou mot de passe. Il est également possible de définir les variables d'environnement `DB_URL`, `DB_USERNAME` et `DB_PASSWORD`.
+
+#### 3.6 Créer les tables et charger les données de démonstration
+Les tables sont créées automatiquement par Hibernate au premier démarrage de l'application grâce à `spring.jpa.hibernate.ddl-auto=update`. Il n'est donc pas nécessaire de les créer à la main.
+
+Si le script de données de démonstration est fourni, après un premier lancement de l'application, le charger avec :
 ```bash
 mysql -u assurance -p assurance_db < src/main/sql/data.sql
 ```
-Pour utiliser un autre utilisateur MySQL, modifier les identifiants dans `src/main/resources/application.properties` ou définir les variables d'environnement `DB_URL`, `DB_USERNAME` et `DB_PASSWORD`.
+
+#### 3.7 Problèmes courants
+
+| Erreur | Cause probable | Solution |
+|---|---|---|
+| `Access denied for user 'assurance'` | Mot de passe incorrect ou utilisateur non créé. | Refaire l'étape 3.3. |
+| `Unknown database 'assurance_db'` | Base de données non créée. | Refaire l'étape 3.3. |
+| `Communications link failure` | MySQL n'est pas démarré. | Refaire l'étape 3.1. |
+| `Public Key Retrieval is not allowed` | Le paramètre de récupération de clé publique manque dans l'URL JDBC. | Vérifier que l'URL contient `allowPublicKeyRetrieval=true`. |
 
 ### 4. Compiler et lancer
 ```bash
