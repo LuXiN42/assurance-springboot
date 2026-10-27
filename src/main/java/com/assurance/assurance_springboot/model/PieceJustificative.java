@@ -16,9 +16,6 @@ import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 
-/**
- * Entité {@code pieces_justificatives}.
- */
 @Entity
 @Table(name = "pieces_justificatives",
         uniqueConstraints = @UniqueConstraint(name = "uk_pj_nom_stocke", columnNames = "nom_stocke"))

@@ -14,9 +14,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Accès aux données des paiements.
- */
 @Repository
 public interface PaiementRepository extends JpaRepository<Paiement, Long> {
 

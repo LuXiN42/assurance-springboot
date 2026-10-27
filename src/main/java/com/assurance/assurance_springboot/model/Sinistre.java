@@ -29,9 +29,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Entité {@code sinistres}.
- */
 @Entity
 @Table(name = "sinistres",
         uniqueConstraints = @UniqueConstraint(name = "uk_sinistre_numero", columnNames = "numero_sinistre"))
@@ -88,18 +85,13 @@ public class Sinistre {
     public Sinistre() {
     }
 
-    /** Rappel métier conservé depuis l'entité JEE : le client est porté par le contrat. */
+    // le client se retrouve via le contrat
     @Transient
     public Utilisateur getClient() {
         return contrat != null ? contrat.getClient() : null;
     }
 
-    /**
-     * Équivalent applicatif de la contrainte CHECK
-     * {@code chk_sinistre_indemn_statut} : l'indemnisation n'est renseignée que
-     * pour un sinistre ACCEPTÉ ou INDEMNISÉ, et elle est obligatoire si le
-     * statut est INDEMNISÉ.
-     */
+    // même règle que le CHECK en base : indemnisation seulement si ACCEPTE ou INDEMNISE, obligatoire si INDEMNISE
     @AssertTrue(message = "montant_indemnisation : cohérent uniquement avec un statut ACCEPTE ou INDEMNISE, et obligatoire si INDEMNISE")
     public boolean isIndemnisationCoherente() {
         if (montantIndemnisation == null) {

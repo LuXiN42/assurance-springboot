@@ -15,9 +15,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Accès aux données des contrats.
- */
 @Repository
 public interface ContratRepository extends JpaRepository<Contrat, Long> {
 

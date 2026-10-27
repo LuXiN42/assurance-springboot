@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-/** Services client : toutes les lectures de ressources sont restreintes à l'identifiant authentifié. */
+/** Tout ce que voit le client, toujours filtré sur son id. */
 @Service
 @Transactional
 public class ClientEspaceService {

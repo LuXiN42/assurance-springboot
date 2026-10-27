@@ -16,9 +16,6 @@ import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 
-/**
- * Entité {@code commentaires}.
- */
 @Entity
 @Table(name = "commentaires")
 public class Commentaire {

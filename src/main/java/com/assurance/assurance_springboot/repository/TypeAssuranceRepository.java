@@ -7,9 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Accès aux données de la table {@code types_assurance}.
- */
 @Repository
 public interface TypeAssuranceRepository extends JpaRepository<TypeAssurance, Long> {
 

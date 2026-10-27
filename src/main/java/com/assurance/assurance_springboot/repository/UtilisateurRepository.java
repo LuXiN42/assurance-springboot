@@ -9,9 +9,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Accès aux données de la table utilisateurs.
- */
 @Repository
 public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long> {
 

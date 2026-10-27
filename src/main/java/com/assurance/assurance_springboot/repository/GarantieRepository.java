@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-/** Accès aux données des garanties. */
 @Repository
 public interface GarantieRepository extends JpaRepository<Garantie, Long> {
     Optional<Garantie> findByNom(String nom);

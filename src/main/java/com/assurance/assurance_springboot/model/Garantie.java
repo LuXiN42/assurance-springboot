@@ -16,9 +16,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Entité {@code garanties}.
- */
 @Entity
 @Table(name = "garanties")
 public class Garantie {

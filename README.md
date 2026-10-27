@@ -51,7 +51,7 @@ Une fois connecté, l'invite devient `mysql>`. On peut aussi utiliser un client 
 Dans l'invite `mysql>`, exécuter :
 ```sql
 CREATE DATABASE assurance_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE USER 'assurance'@'localhost' IDENTIFIED BY 'assuranceGroupeO';
+CREATE USER 'assurance'@'localhost' IDENTIFIED BY 'Assurance2026!';
 GRANT ALL PRIVILEGES ON assurance_db.* TO 'assurance'@'localhost';
 FLUSH PRIVILEGES;
 EXIT;
@@ -62,14 +62,14 @@ Dans un terminal, exécuter :
 ```bash
 mysql -u assurance -p assurance_db
 ```
-Saisir le mot de passe `assuranceGroupeO`. Si l'invite `mysql>` s'affiche, la connexion est opérationnelle. Pour quitter MySQL, exécuter `EXIT;`.
+Saisir le mot de passe `Assurance2026!`. Si l'invite `mysql>` s'affiche, la connexion est opérationnelle. Pour quitter MySQL, exécuter `EXIT;`.
 
 #### 3.5 Configurer l'application
 La configuration se trouve dans `src/main/resources/application.properties` :
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/assurance_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
 spring.datasource.username=assurance
-spring.datasource.password=assuranceGroupeO
+spring.datasource.password=Assurance2026!
 ```
 Modifier ces valeurs si vous utilisez un autre utilisateur ou mot de passe.
 

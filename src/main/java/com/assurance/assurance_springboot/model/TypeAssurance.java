@@ -20,9 +20,6 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-/**
- * Entité {@code types_assurance}.
- */
 @Entity
 @Table(name = "types_assurance")
 public class TypeAssurance {

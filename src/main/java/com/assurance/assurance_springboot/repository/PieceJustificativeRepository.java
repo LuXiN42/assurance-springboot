@@ -10,9 +10,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Accès aux données de la table {@code pieces_justificatives}.
- */
 @Repository
 public interface PieceJustificativeRepository extends JpaRepository<PieceJustificative, Long> {
 

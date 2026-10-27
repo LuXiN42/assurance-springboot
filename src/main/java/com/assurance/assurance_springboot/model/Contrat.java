@@ -28,9 +28,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Entité {@code contrats}.
- */
 @Entity
 @Table(name = "contrats",
         uniqueConstraints = @UniqueConstraint(name = "uk_contrat_numero", columnNames = "numero_contrat"))
@@ -87,10 +84,7 @@ public class Contrat {
     public Contrat() {
     }
 
-    /**
-     * Équivalent applicatif de la contrainte CHECK {@code chk_contrat_dates}
-     * ({@code date_fin IS NULL OR date_fin > date_debut}).
-     */
+    // même règle que le CHECK en base : la fin doit être après le début
     @AssertTrue(message = "date_fin doit être strictement postérieure à date_debut")
     public boolean isDateFinCoherente() {
         return dateFin == null || dateDebut == null || dateFin.isAfter(dateDebut);

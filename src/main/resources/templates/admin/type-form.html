@@ -25,7 +25,7 @@
                                    : ${type.garantiesDisponibles.contains(g)}">
                 <span th:text="${g.nom}"></span>
             </label>
-            <p th:if="${#lists.isEmpty(garanties)}">Aucune garantie en base. Crée-les d'abord côté agent.</p>
+            <p th:if="${#lists.isEmpty(garanties)}">Aucune garantie en base. Créez-les d'abord côté agent.</p>
         </fieldset>
         <button type="submit">Enregistrer</button>
         <a th:href="@{/admin/types}">Annuler</a>

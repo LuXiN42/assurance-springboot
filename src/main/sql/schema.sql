@@ -1,24 +1,15 @@
--- ============================================================================
--- schema.sql : schéma de la base `assurance_db` (MySQL 8 / MariaDB 10)
--- Projet J2EE Assurance, compatible avec Hibernate hbm2ddl = update compatible.
--- ============================================================================
--- Généré à partir des entités JPA du package com.assurance.model :
---   Utilisateur, Contrat, TypeAssurance, Garantie, Sinistre, Paiement,
---   Commentaire, PieceJustificative
--- + tables de jointure ManyToMany : contrat_garanties, type_assurance_garanties.
+-- schema.sql : tables de la base assurance_db (MySQL 8)
+-- À lancer avant data.sql. Les tables sont supprimées puis recréées,
+-- donc on peut relancer le script autant de fois qu'on veut.
 --
--- Enums stockés en STRING via @Enumerated(EnumType.STRING) :
---   Role             : CLIENT, AGENT, ADMIN
---   StatutContrat    : EN_ATTENTE, ACTIF, SUSPENDU, EXPIRE, RESILIE
---   StatutSinistre   : DECLARE, EN_ANALYSE, ACCEPTE, REFUSE, INDEMNISE
---   StatutPaiement   : EN_ATTENTE, EFFECTUE, ECHOUE, ANNULE
---   ModePaiement     : CARTE, VIREMENT, PRELEVEMENT, ESPECES, CHEQUE, AUTRE
---
--- Moteur / charset : InnoDB + utf8mb4 (cohérent avec Hibernate MySQL8Dialect).
--- ============================================================================
+-- Les enums sont stockés en texte :
+--   role            : CLIENT, AGENT, ADMIN
+--   statut contrat  : EN_ATTENTE, ACTIF, SUSPENDU, EXPIRE, RESILIE
+--   statut sinistre : DECLARE, EN_ANALYSE, ACCEPTE, REFUSE, INDEMNISE
+--   statut paiement : EN_ATTENTE, EFFECTUE, ECHOUE, ANNULE
+--   mode paiement   : CARTE, VIREMENT, PRELEVEMENT, ESPECES, CHEQUE, AUTRE
 
--- Suppression préalable des tables dans l'ordre INVERSE des dépendances FK,
--- pour permettre une ré-exécution propre du script.
+-- on supprime dans l'ordre inverse des clés étrangères
 DROP TABLE IF EXISTS pieces_justificatives;
 DROP TABLE IF EXISTS commentaires;
 DROP TABLE IF EXISTS paiements;
@@ -30,9 +21,7 @@ DROP TABLE IF EXISTS garanties;
 DROP TABLE IF EXISTS types_assurance;
 DROP TABLE IF EXISTS utilisateurs;
 
--- ============================================================================
--- 1. utilisateurs
--- ============================================================================
+-- ---------- 1. utilisateurs ----------
 CREATE TABLE utilisateurs (
     id                 BIGINT          NOT NULL AUTO_INCREMENT,
     email              VARCHAR(255)    NOT NULL,
@@ -49,9 +38,7 @@ CREATE TABLE utilisateurs (
         CHECK (role IN ('CLIENT','AGENT','ADMIN'))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- ============================================================================
--- 2. types_assurance
--- ============================================================================
+-- ---------- 2. types_assurance ----------
 CREATE TABLE types_assurance (
     id          BIGINT          NOT NULL AUTO_INCREMENT,
     nom         VARCHAR(150)    NOT NULL,
@@ -60,9 +47,7 @@ CREATE TABLE types_assurance (
     PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- ============================================================================
--- 3. garanties
--- ============================================================================
+-- ---------- 3. garanties ----------
 CREATE TABLE garanties (
     id          BIGINT          NOT NULL AUTO_INCREMENT,
     nom         VARCHAR(150)    NOT NULL,
@@ -70,9 +55,7 @@ CREATE TABLE garanties (
     PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- ============================================================================
--- 4. type_assurance_garanties (jointure M:N TypeAssurance <-> Garantie)
--- ============================================================================
+-- ---------- 4. type_assurance_garanties (jointure M:N TypeAssurance <-> Garantie) ----------
 CREATE TABLE type_assurance_garanties (
     type_assurance_id BIGINT NOT NULL,
     garantie_id       BIGINT NOT NULL,
@@ -83,9 +66,7 @@ CREATE TABLE type_assurance_garanties (
         REFERENCES garanties (id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- ============================================================================
--- 5. contrats
--- ============================================================================
+-- ---------- 5. contrats ----------
 CREATE TABLE contrats (
     id                  BIGINT        NOT NULL AUTO_INCREMENT,
     numero_contrat      VARCHAR(80)   NOT NULL,
@@ -113,9 +94,7 @@ CREATE TABLE contrats (
         CHECK (prime > 0)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- ============================================================================
--- 6. contrat_garanties (jointure M:N Contrat <-> Garantie)
--- ============================================================================
+-- ---------- 6. contrat_garanties (jointure M:N Contrat <-> Garantie) ----------
 CREATE TABLE contrat_garanties (
     contrat_id  BIGINT NOT NULL,
     garantie_id BIGINT NOT NULL,
@@ -126,9 +105,7 @@ CREATE TABLE contrat_garanties (
         REFERENCES garanties (id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- ============================================================================
--- 7. sinistres
--- ============================================================================
+-- ---------- 7. sinistres ----------
 CREATE TABLE sinistres (
     id                      BIGINT         NOT NULL AUTO_INCREMENT,
     numero_sinistre         VARCHAR(80)    NOT NULL,
@@ -157,9 +134,7 @@ CREATE TABLE sinistres (
            AND (statut <> 'INDEMNISE' OR montant_indemnisation IS NOT NULL))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- ============================================================================
--- 8. paiements
--- ============================================================================
+-- ---------- 8. paiements ----------
 CREATE TABLE paiements (
     id            BIGINT        NOT NULL AUTO_INCREMENT,
     montant       DECIMAL(12,2) NOT NULL,
@@ -182,9 +157,7 @@ CREATE TABLE paiements (
         CHECK (montant > 0)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- ============================================================================
--- 9. commentaires
--- ============================================================================
+-- ---------- 9. commentaires ----------
 CREATE TABLE commentaires (
     id            BIGINT       NOT NULL AUTO_INCREMENT,
     texte         VARCHAR(2000) NOT NULL,
@@ -202,9 +175,7 @@ CREATE TABLE commentaires (
         CHECK (CHAR_LENGTH(TRIM(texte)) >= 1 AND CHAR_LENGTH(texte) <= 2000)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- ============================================================================
--- 10. pieces_justificatives
--- ============================================================================
+-- ---------- 10. pieces_justificatives ----------
 CREATE TABLE pieces_justificatives (
     id           BIGINT       NOT NULL AUTO_INCREMENT,
     nom_original VARCHAR(255) NOT NULL,
@@ -219,7 +190,3 @@ CREATE TABLE pieces_justificatives (
     CONSTRAINT fk_pj_sinistre FOREIGN KEY (sinistre_id)
         REFERENCES sinistres (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- ============================================================================
--- Fin du schéma. Tables créées : 10
--- ============================================================================

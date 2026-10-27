@@ -20,9 +20,6 @@ import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-/**
- * Entité {@code paiements}.
- */
 @Entity
 @Table(name = "paiements")
 public class Paiement {

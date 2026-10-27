@@ -24,9 +24,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Entité {@code utilisateurs}.
- */
 @Entity
 @Table(name = "utilisateurs",
         uniqueConstraints = @UniqueConstraint(name = "uk_utilisateur_email", columnNames = "email"))

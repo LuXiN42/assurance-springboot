@@ -9,9 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * Accès aux données de la table {@code commentaires}.
- */
 @Repository
 public interface CommentaireRepository extends JpaRepository<Commentaire, Long> {
 

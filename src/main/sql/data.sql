@@ -1,8 +1,5 @@
--- ============================================================================
--- data.sql : jeu de démonstration de données pour l'application d'assurance.
--- Tous les comptes du jeu utilisent le mot de passe : Password123!
--- Le fichier schema.sql, distinct, supprime puis recrée la structure des tables.
--- ============================================================================
+-- data.sql : données de test, à lancer après schema.sql
+-- Tous les comptes ont le mot de passe Password123!
 
 SET FOREIGN_KEY_CHECKS = 0;
 DELETE FROM pieces_justificatives;
@@ -17,10 +14,8 @@ DELETE FROM types_assurance;
 DELETE FROM utilisateurs;
 SET FOREIGN_KEY_CHECKS = 1;
 
--- ============================================================================
--- 1. UTILISATEURS (1 admin, 4 agents, 25 clients)
+-- ---------- 1. utilisateurs (1 admin, 4 agents, 25 clients) ----------
 -- IDs : admin=1, agents=2..5, clients=6..30
--- ============================================================================
 INSERT INTO utilisateurs (id, email, mot_de_passe_hash, role, nom, prenom, telephone, adresse, date_inscription) VALUES
 -- Admin
 ( 1, 'admin@assurance.fr',
@@ -116,9 +111,7 @@ INSERT INTO utilisateurs (id, email, mot_de_passe_hash, role, nom, prenom, telep
        '$2a$10$kV8ub5mb6P1.AHH5wUJvQeyx3TI4N1yFmqZCcOHSfoJ83uiDPvlKS',
        'CLIENT', 'François', 'Yasmine', '0620000030', '30 rue des Clients, 93100 Montreuil', '2024-06-18');
 
--- ============================================================================
--- 2. TYPES D'ASSURANCE (5)
--- ============================================================================
+-- ---------- 2. types d'assurance (5) ----------
 INSERT INTO types_assurance (id, nom, description, prix_base) VALUES
 (1, 'Automobile',    'Assurance pour véhicules particuliers et utilitaires.', 480.00),
 (2, 'Habitation',    'Assurance pour logements (incendie, dégât des eaux, vol).', 320.00),
@@ -126,9 +119,7 @@ INSERT INTO types_assurance (id, nom, description, prix_base) VALUES
 (4, 'Voyage',        'Assurance des déplacements et séjours.',             250.00),
 (5, 'Professionnelle', 'Assurance de responsabilité professionnelle.', 310.00);
 
--- ============================================================================
--- 3. GARANTIES (6)
--- ============================================================================
+-- ---------- 3. garanties (6) ----------
 INSERT INTO garanties (id, nom, description) VALUES
 (1, 'Responsabilité civile', 'Couverture des dommages causés à des tiers.'),
 (2, 'Vol',                   'Couverture en cas de vol.'),
@@ -137,9 +128,7 @@ INSERT INTO garanties (id, nom, description) VALUES
 (5, 'Dégâts des eaux',       'Couverture des dommages liés aux fuites et dégâts des eaux.'),
 (6, 'Assistance',            'Aide et services d’assistance à l’assuré.');
 
--- ============================================================================
--- 4. JOINTURE types_assurance <-> garanties
--- ============================================================================
+-- ---------- 4. jointure types_assurance <-> garanties ----------
 INSERT INTO type_assurance_garanties (type_assurance_id, garantie_id) VALUES
 -- Automobile : Responsabilité civile, Vol, Incendie, Accident
 (1, 1), (1, 2), (1, 3), (1, 4),
@@ -152,9 +141,7 @@ INSERT INTO type_assurance_garanties (type_assurance_id, garantie_id) VALUES
 -- Professionnelle : Responsabilité civile, Incendie, Vol, Dégâts des eaux
 (5, 1), (5, 3), (5, 2), (5, 5);
 
--- ============================================================================
--- 5. CONTRATS (~30, répartis sur 16 mois, dans tous les statuts)
--- ============================================================================
+-- ---------- 5. contrats (~30, répartis sur 16 mois, dans tous les statuts) ----------
 INSERT INTO contrats (id, numero_contrat, date_debut, date_fin, prime, statut, client_id, type_assurance_id) VALUES
 ( 1, 'CTR-2025-0001', '2025-07-15', '2026-07-15', 520.00, 'ACTIF',      6,  1),
 ( 2, 'CTR-2025-0002', '2025-07-22', '2025-12-31', 340.00, 'EXPIRE',     7,  2),
@@ -187,9 +174,7 @@ INSERT INTO contrats (id, numero_contrat, date_debut, date_fin, prime, statut, c
 (29, 'CTR-2026-0029', '2026-09-07', '2027-09-07', 490.00, 'ACTIF',      9,  2),
 (30, 'CTR-2026-0030', '2026-09-25', '2027-09-25', 620.00, 'SUSPENDU',  10,  1);
 
--- ============================================================================
--- 6. JOINTURE contrats <-> garanties (garanties conformes au type de chaque contrat)
--- ============================================================================
+-- ---------- 6. jointure contrats <-> garanties (garanties conformes au type de chaque contrat) ----------
 INSERT INTO contrat_garanties (contrat_id, garantie_id) VALUES
 ( 1, 1),
 ( 1, 2),
@@ -294,10 +279,8 @@ INSERT INTO contrat_garanties (contrat_id, garantie_id) VALUES
 (30, 3),
 (30, 4);
 
--- ============================================================================
--- 7. SINISTRES (~15, dans tous les statuts)
+-- ---------- 7. sinistres (~15, dans tous les statuts) ----------
 -- Pour ACCEPTE et INDEMNISE, montant_indemnisation renseigné.
--- ============================================================================
 INSERT INTO sinistres (id, numero_sinistre, `date`, description, montant_estime, type_sinistre, statut, montant_indemnisation, contrat_id) VALUES
 ( 1, 'SIN-2026-0001', '2026-10-22', 'Accident de voiture, collision arrière sur parking.',     1500.00, 'Accident automobile',         'DECLARE',    NULL, 1),
 ( 2, 'SIN-2026-0002', '2026-10-15', 'Dégât des eaux dans la cuisine après fuite.',            3500.00, 'Dégâts des eaux',              'EN_ANALYSE', NULL, 11),
@@ -315,9 +298,7 @@ INSERT INTO sinistres (id, numero_sinistre, `date`, description, montant_estime,
 (14, 'SIN-2026-0014', '2026-01-15', 'Dommages latéraux suite à stationnement rue étroite.',  1900.00, 'Accident automobile',         'ACCEPTE',    1800.00, 23),
 (15, 'SIN-2026-0015', '2026-10-10', 'Pneu éclaté, choc contre trottoir.',                   2500.00, 'Accident automobile',         'DECLARE',    NULL,   27);
 
--- ============================================================================
--- 8. PAIEMENTS (~30, dans tous les statuts, un EFFECTUE par mois sur 12 mois)
--- ============================================================================
+-- ---------- 8. paiements (~30, dans tous les statuts, un effectué par mois sur 12 mois) ----------
 INSERT INTO paiements (id, montant, `date`, mode_paiement, statut, contrat_id) VALUES
 ( 1, 320.00, '2025-10-12', 'VIREMENT',     'EFFECTUE',  7),
 ( 2, 320.00, '2025-11-15', 'VIREMENT',     'EFFECTUE',  9),
@@ -350,9 +331,7 @@ INSERT INTO paiements (id, montant, `date`, mode_paiement, statut, contrat_id) V
 (29, 280.00, '2026-10-05', 'CARTE',        'EFFECTUE', 22),
 (30, 580.00, '2026-10-22', 'PRELEVEMENT',  'EFFECTUE',  1);
 
--- ============================================================================
--- 9. COMMENTAIRES (6, écrits par les agents sur certains sinistres)
--- ============================================================================
+-- ---------- 9. commentaires (6, écrits par les agents sur certains sinistres) ----------
 INSERT INTO commentaires (id, texte, date_creation, auteur_id, sinistre_id) VALUES
 (1, 'Bien reçu, dossier transmis à l’analyse. Pièces complémentaires attendues.',  '2026-10-22 10:15:00', 2,  1),
 (2, 'Dossier complet, devis validé. Accord pour indemnisation à hauteur de 2000€.',  '2026-09-11 14:30:00', 3,  3),
@@ -361,9 +340,7 @@ INSERT INTO commentaires (id, texte, date_creation, auteur_id, sinistre_id) VALU
 (5, 'Indemnisation de 9000€ versée. Clôture du dossier.',                             '2026-04-15 16:20:00', 2,  9),
 (6, 'Montant de 1800€ validé par la direction. Procéder au paiement.',                '2026-01-17 08:50:00', 3, 14);
 
--- ============================================================================
--- 10. PIÈCES JUSTIFICATIVES (6, attachées à des sinistres)
--- ============================================================================
+-- ---------- 10. pièces justificatives (6, attachées à des sinistres) ----------
 INSERT INTO pieces_justificatives (id, nom_original, nom_stocke, type_mime, taille, date_depot, sinistre_id) VALUES
 (1, 'constat_amiable.pdf',       'pj_001_constat_amiable.pdf',       'application/pdf', 245678,  '2026-10-22 09:30:00',  1),
 (2, 'photos_degats.zip',         'pj_002_photos_degats.zip',         'application/zip', 1245678, '2026-10-15 18:12:00',  2),
@@ -371,50 +348,3 @@ INSERT INTO pieces_justificatives (id, nom_original, nom_stocke, type_mime, tail
 (4, 'devis_reparation.pdf',      'pj_004_devis_reparation.pdf',      'application/pdf', 234567,  '2026-08-19 10:20:00',  4),
 (5, 'rapport_expert.pdf',        'pj_005_rapport_expert.pdf',        'application/pdf', 789012,  '2026-04-10 11:45:00',  9),
 (6, 'photo_vehicule.jpg',        'pj_006_photo_vehicule.jpg',        'image/jpeg',      456789,  '2026-01-15 17:30:00', 14);
-
--- ============================================================================
--- REQUÊTES DE VÉRIFICATION (StatistiquesDao)
--- ============================================================================
--- (1) Effectifs utilisateurs par rôle (attendu : ADMIN=1, AGENT=4, CLIENT=25)
--- SELECT role, COUNT(*) AS effectif
---   FROM utilisateurs
---  GROUP BY role
---  ORDER BY role;
-
--- (2) Évolution mensuelle des contrats sur 12 mois
--- SELECT DATE_FORMAT(date_debut, '%Y-%m') AS mois, COUNT(*) AS n
---   FROM contrats
---  WHERE date_debut >= DATE_SUB(CURDATE(), INTERVAL 12 MONTH)
---  GROUP BY DATE_FORMAT(date_debut, '%Y-%m')
---  ORDER BY 1;
-
--- (3) Répartition des contrats par statut (attendu : tous les 5 statuts présents)
--- SELECT statut, COUNT(*) AS nb
---   FROM contrats
---  GROUP BY statut
---  ORDER BY nb DESC;
-
--- (4) Répartition des sinistres par statut (attendu : DECLARE, EN_ANALYSE, ACCEPTE, REFUSE, INDEMNISE)
--- SELECT statut, COUNT(*) AS nb
---   FROM sinistres
---  GROUP BY statut
---  ORDER BY nb DESC;
-
--- (5) CA encaissé (somme paiements statut = 'EFFECTUE')
--- SELECT COALESCE(SUM(montant),0) FROM paiements WHERE statut = 'EFFECTUE';
-
--- (6) Total des indemnisations versées (statut = 'INDEMNISE')
--- SELECT COALESCE(SUM(montant_indemnisation),0) FROM sinistres WHERE statut = 'INDEMNISE';
-
--- (7) Évolution mensuelle des paiements encaissés sur 12 mois
--- SELECT DATE_FORMAT(`date`, '%Y-%m') AS mois, COALESCE(SUM(montant),0) AS total
---   FROM paiements
---  WHERE `date` >= DATE_SUB(CURDATE(), INTERVAL 12 MONTH)
---    AND statut = 'EFFECTUE'
---  GROUP BY DATE_FORMAT(`date`, '%Y-%m')
---  ORDER BY 1;
--- ============================================================================
--- FIN du jeu de données.
--- Récapitulatif : 30 utilisateurs, 5 types, 6 garanties, 30 contrats,
--- 15 sinistres, 30 paiements, 6 commentaires, 6 pièces justificatives.
--- ============================================================================
