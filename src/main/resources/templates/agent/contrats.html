@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('Contrats')}"></head>
+
+<body>
+    <header th:replace="~{fragments/layout :: header}"></header>
+
+    <main>
+        <div th:replace="~{fragments/layout :: messages}"></div>
+
+        <h1>Contrats</h1>
+
+        <p>
+            <a class="btn" th:href="@{/agent/contrats/nouveau}">
+                + Nouveau contrat
+            </a>
+        </p>
+
+        <form method="get">
+            <label>
+                Numéro
+                <input name="numero" th:value="${numero}" />
+            </label>
+
+            <label>
+                Client
+                <input name="nomClient" th:value="${nomClient}" />
+            </label>
+
+            <label>
+                Type
+                <select name="typeId">
+                    <option value="">Tous</option>
+                    <option th:each="t:${types}"
+                            th:value="${t.id}"
+                            th:selected="${typeId == t.id}"
+                            th:text="${t.nom}"></option>
+                </select>
+            </label>
+
+            <label>
+                Statut
+                <select name="statut">
+                    <option value="">Tous</option>
+                    <option th:each="s:${statuts}"
+                            th:value="${s}"
+                            th:selected="${statut == s}"
+                            th:text="${s}"></option>
+                </select>
+            </label>
+
+            <button class="btn">Rechercher</button>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Numéro</th>
+                    <th>Client</th>
+                    <th>Type</th>
+                    <th>Début</th>
+                    <th>Fin</th>
+                    <th>Prime</th>
+                    <th>Statut</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr th:each="c:${contrats}">
+                    <td th:text="${c.numeroContrat}"></td>
+                    <td th:text="${c.client.prenom+' '+c.client.nom}"></td>
+                    <td th:text="${c.typeAssurance.nom}"></td>
+                    <td th:text="${c.dateDebut}"></td>
+                    <td th:text="${c.dateFin}"></td>
+                    <td th:text="${c.prime}"></td>
+                    <td th:text="${c.statut}"></td>
+                    <td>
+                        <a th:href="@{/agent/contrats/{id}(id=${c.id})}">
+                            Détail
+                        </a>
+                        ·
+                        <a th:href="@{/agent/contrats/{id}/modifier(id=${c.id})}">
+                            Modifier
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+    <script
+        type="module"
+        src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092"
+        integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw=="
+        data-cf-beacon='{"version":"2024.11.0","token":"8607d2a720d14b038279025b2b5a82e5","spa":2}'
+        crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

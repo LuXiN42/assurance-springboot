@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('Statistiques')}"></head>
+
+<body>
+    <header th:replace="~{fragments/layout :: header}"></header>
+
+    <main>
+        <div th:replace="~{fragments/layout :: messages}"></div>
+
+        <h1>Statistiques globales</h1>
+
+        <div class="grid">
+            <div class="card">
+                <h2>Clients</h2>
+
+                <p th:text="${nombreClients}"></p>
+
+                <p>
+                    Nouveaux clients :
+                    <span th:text="${nouveauxClients}"></span>
+                </p>
+            </div>
+
+            <div class="card">
+                <h2>Contrats</h2>
+
+                <p>
+                    Total :
+                    <span th:text="${nombreContrats}"></span>
+                </p>
+
+                <p>
+                    Par statut :
+                    <span th:each="e:${contratsParStatut}"
+                          th:text="${e.key+' '+e.value+' · '} ">
+                    </span>
+                </p>
+            </div>
+
+            <div class="card">
+                <h2>Sinistres</h2>
+
+                <p th:text="${nombreSinistres}"></p>
+            </div>
+
+            <div class="card">
+                <h2>Finances</h2>
+
+                <p>
+                    Primes :
+                    <span th:text="${totalPrimes}"></span>
+                </p>
+
+                <p>
+                    Paiements effectués :
+                    <span th:text="${totalPaiementsEffectues}"></span>
+                </p>
+
+                <p>
+                    Indemnisations :
+                    <span th:text="${totalIndemnisations}"></span>
+                </p>
+            </div>
+        </div>
+
+        <h2>Clients par type d'assurance</h2>
+
+        <table>
+            <tr>
+                <th>Type</th>
+                <th>Nombre clients</th>
+            </tr>
+
+            <tr th:each="x:${clientsParType}">
+                <td th:text="${x.nom}"></td>
+                <td th:text="${x.nombre}"></td>
+            </tr>
+        </table>
+
+        <h2>Contrats créés par mois</h2>
+
+        <table>
+            <tr>
+                <th>Mois</th>
+                <th>Nombre</th>
+            </tr>
+
+            <tr th:each="x:${contratsParMois}">
+                <td th:text="${x.mois}"></td>
+                <td th:text="${x.nombre}"></td>
+            </tr>
+        </table>
+    </main>
+
+    <script
+        type="module"
+        src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092"
+        integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw=="
+        data-cf-beacon='{"version":"2024.11.0","token":"8607d2a720d14b038279025b2b5a82e5","spa":2}'
+        crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

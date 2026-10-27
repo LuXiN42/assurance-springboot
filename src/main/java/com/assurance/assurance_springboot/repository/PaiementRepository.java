@@ -58,6 +58,9 @@ public interface PaiementRepository extends JpaRepository<Paiement, Long> {
             "contrat.typeAssurance"
     })
     List<Paiement> findByStatut(StatutPaiement statut);
+    @EntityGraph(attributePaths={"contrat", "contrat.client", "contrat.typeAssurance"})
+    @Query("select p from Paiement p where p.statut=:statut and p.date between :debut and :fin order by p.date asc")
+    List<Paiement> findEcheancesGlobales(@Param("statut") StatutPaiement statut, @Param("debut") LocalDate debut, @Param("fin") LocalDate fin);
 
     List<Paiement> findByStatutAndContratId(
             StatutPaiement statut,

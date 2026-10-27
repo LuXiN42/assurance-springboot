@@ -1,6 +1,8 @@
 package com.assurance.assurance_springboot.controller;
 
 import com.assurance.assurance_springboot.security.UtilisateurPrincipal;
+import com.assurance.assurance_springboot.service.StatistiquesService;
+import com.assurance.assurance_springboot.service.PaiementService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class AccueilController {
+
+    private final StatistiquesService statistiques;
+    private final PaiementService paiements;
+    public AccueilController(StatistiquesService statistiques, PaiementService paiements) { this.statistiques = statistiques; this.paiements = paiements; }
 
     @GetMapping("/")
     public String racine() {

@@ -1,12 +1,57 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="~{fragments/layout :: head('Accueil agent')}"></head>
+
 <body>
-<header th:replace="~{fragments/layout :: header}"></header>
-<main>
-    <div th:replace="~{fragments/layout :: messages}"></div>
-    <h1>Bonjour <span th:text="${prenom}">Prénom</span> !</h1>
-    <div class="card">Espace agent</div>
-</main>
+    <header th:replace="~{fragments/layout :: header}"></header>
+
+    <main>
+        <div th:replace="~{fragments/layout :: messages}"></div>
+
+        <h1>
+            Bonjour <span th:text="${prenom}">Prénom</span> !
+        </h1>
+
+        <div class="grid">
+            <div class="card">
+                <h2>Contrats</h2>
+                <p th:text="${nombreContrats}"></p>
+                <a class="btn" th:href="@{/agent/contrats}">Gérer les contrats</a>
+            </div>
+
+            <div class="card">
+                <h2>Clients</h2>
+                <p th:text="${nombreClients}"></p>
+                <a class="btn" th:href="@{/agent/clients}">Consulter les clients</a>
+            </div>
+
+            <div class="card">
+                <h2>Sinistres</h2>
+                <p th:text="${nombreSinistres}"></p>
+                <a class="btn" th:href="@{/agent/sinistres}">Traiter les sinistres</a>
+            </div>
+
+            <div class="card">
+                <h2>Paiements en attente</h2>
+                <p th:text="${paiementsEnAttente}"></p>
+                <a class="btn" th:href="@{/agent/paiements(statut='EN_ATTENTE')}">Paiements</a>
+            </div>
+        </div>
+
+        <div class="grid">
+            <a class="card" th:href="@{/agent/garanties}">Gérer les garanties</a>
+            <a class="card" th:href="@{/agent/statistiques}">Statistiques globales</a>
+        </div>
+    </main>
+
+    <script
+        type="module"
+        src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092"
+        integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw=="
+        data-cf-beacon='{"version":"2024.11.0","token":"8607d2a720d14b038279025b2b5a82e5","spa":2}'
+        crossorigin="anonymous">
+    </script>
 </body>
+
 </html>

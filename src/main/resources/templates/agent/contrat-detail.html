@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('Détail contrat')}"></head>
+
+<body>
+    <header th:replace="~{fragments/layout :: header}"></header>
+
+    <main>
+        <div th:replace="~{fragments/layout :: messages}"></div>
+
+        <h1>
+            Contrat <span th:text="${contrat.numeroContrat}"></span>
+        </h1>
+
+        <div class="card">
+            <p>
+                Client :
+                <a th:href="@{/agent/clients/{id}(id=${contrat.client.id})}"
+                   th:text="${contrat.client.prenom+' '+contrat.client.nom}"></a>
+            </p>
+
+            <p>
+                Type :
+                <span th:text="${contrat.typeAssurance.nom}"></span>
+            </p>
+
+            <p>
+                Début :
+                <span th:text="${contrat.dateDebut}"></span>
+                —
+                Fin :
+                <span th:text="${contrat.dateFin}"></span>
+            </p>
+
+            <p>
+                Prime :
+                <span th:text="${contrat.prime}"></span>
+                —
+                Statut :
+                <span class="badge" th:text="${contrat.statut}"></span>
+            </p>
+
+            <a class="btn"
+               th:href="@{/agent/contrats/{id}/modifier(id=${contrat.id})}">
+                Modifier
+            </a>
+        </div>
+
+        <h2>Garanties du contrat</h2>
+
+        <ul>
+            <li th:each="g:${garanties}">
+                <span th:text="${g.nom}"></span>
+
+                <form style="display:inline"
+                      method="post"
+                      th:action="@{/agent/contrats/{id}/garanties/{gid}/dissocier(id=${contrat.id},gid=${g.id})}">
+                    <button class="btn btn-danger">Dissocier</button>
+                </form>
+            </li>
+        </ul>
+
+        <form method="post"
+              th:action="@{/agent/contrats/{id}/garanties/associer(id=${contrat.id})}">
+            <label>
+                Ajouter une garantie
+                <select name="garantieId" required>
+                    <option th:each="g:${toutesGaranties}"
+                            th:value="${g.id}"
+                            th:text="${g.nom}"></option>
+                </select>
+            </label>
+
+            <button class="btn">Associer</button>
+        </form>
+
+        <div class="grid">
+            <form method="post"
+                  th:action="@{/agent/contrats/{id}/suspendre(id=${contrat.id})}">
+                <button class="btn btn-secondary">Suspendre</button>
+            </form>
+
+            <form method="post"
+                  th:action="@{/agent/contrats/{id}/resilier(id=${contrat.id})}">
+                <button class="btn btn-danger">Résilier</button>
+            </form>
+
+            <form method="post"
+                  th:action="@{/agent/contrats/{id}/reactiver(id=${contrat.id})}">
+                <button class="btn">Réactiver</button>
+            </form>
+        </div>
+
+        <form method="post"
+              th:action="@{/agent/contrats/{id}/renouveler(id=${contrat.id})}">
+            <label>
+                Nouvelle date de fin
+                <input type="date" name="nouvelleDateFin" required />
+            </label>
+
+            <button class="btn">Renouveler contrat expiré</button>
+        </form>
+    </main>
+
+    <script
+        type="module"
+        src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092"
+        integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw=="
+        data-cf-beacon='{"version":"2024.11.0","token":"8607d2a720d14b038279025b2b5a82e5","spa":2}'
+        crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

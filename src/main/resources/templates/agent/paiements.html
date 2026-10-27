@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('Paiements')}"></head>
+
+<body>
+    <header th:replace="~{fragments/layout :: header}"></header>
+
+    <main>
+        <div th:replace="~{fragments/layout :: messages}"></div>
+
+        <h1>Paiements</h1>
+
+        <p>
+            <a class="btn" th:href="@{/agent/paiements/nouveau}">
+                + Enregistrer un paiement
+            </a>
+        </p>
+
+        <form method="get">
+            <label>
+                Statut
+                <select name="statut">
+                    <option value="">Tous</option>
+                    <option th:each="s:${statuts}"
+                            th:value="${s}"
+                            th:text="${s}">
+                    </option>
+                </select>
+            </label>
+
+            <label>
+                Échéances dans les jours
+                <input type="number"
+                       min="0"
+                       name="jours"
+                       th:value="${jours}" />
+            </label>
+
+            <label>
+                Historique client ID
+                <input type="number"
+                       name="clientId"
+                       th:value="${clientId}" />
+            </label>
+
+            <label>
+                Paiements contrat ID
+                <input type="number"
+                       name="contratId"
+                       th:value="${contratId}" />
+            </label>
+
+            <button class="btn">Filtrer</button>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Client</th>
+                    <th>Contrat</th>
+                    <th>Montant</th>
+                    <th>Mode</th>
+                    <th>Statut</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr th:each="p:${paiements}">
+                    <td th:text="${p.date}"></td>
+
+                    <td>
+                        <a th:href="@{/agent/clients/{id}(id=${p.contrat.client.id})}"
+                           th:text="${p.contrat.client.prenom+' '+p.contrat.client.nom}">
+                        </a>
+                    </td>
+
+                    <td>
+                        <a th:href="@{/agent/contrats/{id}(id=${p.contrat.id})}"
+                           th:text="${p.contrat.numeroContrat}">
+                        </a>
+                    </td>
+
+                    <td th:text="${p.montant}"></td>
+                    <td th:text="${p.modePaiement}"></td>
+                    <td th:text="${p.statut}"></td>
+
+                    <td>
+                        <form style="display:inline"
+                              method="post"
+                              th:action="@{/agent/paiements/{id}/valider(id=${p.id})}">
+                            <select name="mode">
+                                <option value="">Mode</option>
+                                <option th:each="m:${modes}"
+                                        th:value="${m}"
+                                        th:text="${m}">
+                                </option>
+                            </select>
+
+                            <button>Valider</button>
+                        </form>
+
+                        <form style="display:inline"
+                              method="post"
+                              th:action="@{/agent/paiements/{id}/echouer(id=${p.id})}">
+                            <button>Échouer</button>
+                        </form>
+
+                        <form style="display:inline"
+                              method="post"
+                              th:action="@{/agent/paiements/{id}/annuler(id=${p.id})}">
+                            <button>Annuler</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+    <script
+        type="module"
+        src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092"
+        integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw=="
+        data-cf-beacon='{"version":"2024.11.0","token":"8607d2a720d14b038279025b2b5a82e5","spa":2}'
+        crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

@@ -21,6 +21,10 @@ import java.util.Optional;
 @Repository
 public interface ContratRepository extends JpaRepository<Contrat, Long> {
 
+    @EntityGraph(attributePaths = {"client", "typeAssurance", "garanties"})
+    @Query("select distinct c from Contrat c order by c.dateDebut desc")
+    List<Contrat> findAllComplets();
+
     Optional<Contrat> findByNumeroContrat(String numeroContrat);
 
     boolean existsByNumeroContrat(String numeroContrat);
@@ -29,6 +33,7 @@ public interface ContratRepository extends JpaRepository<Contrat, Long> {
 
     List<Contrat> findByClientId(Long clientId);
 
+    @EntityGraph(attributePaths={"client", "typeAssurance", "garanties"})
     List<Contrat> findByClientIdOrderByDateDebutDesc(Long clientId);
 
     List<Contrat> findByStatut(StatutContrat statut);

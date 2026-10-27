@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('Garanties')}"></head>
+
+<body>
+    <header th:replace="~{fragments/layout :: header}"></header>
+
+    <main>
+        <div th:replace="~{fragments/layout :: messages}"></div>
+
+        <h1>Garanties</h1>
+
+        <p>
+            <a class="btn" th:href="@{/agent/garanties/nouveau}">
+                + Nouvelle garantie
+            </a>
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr th:each="g:${garanties}">
+                    <td th:text="${g.nom}"></td>
+                    <td th:text="${g.description}"></td>
+                    <td>
+                        <a th:href="@{/agent/garanties/{id}/modifier(id=${g.id})}">
+                            Modifier
+                        </a>
+
+                        <form style="display:inline"
+                              method="post"
+                              th:action="@{/agent/garanties/{id}/supprimer(id=${g.id})}"
+                              onsubmit="return confirm('Supprimer cette garantie ?')">
+                            <button class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+    <script
+        type="module"
+        src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092"
+        integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw=="
+        data-cf-beacon='{"version":"2024.11.0","token":"8607d2a720d14b038279025b2b5a82e5","spa":2}'
+        crossorigin="anonymous">
+    </script>
+</body>
+
+</html>
