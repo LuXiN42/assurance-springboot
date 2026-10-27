@@ -9,12 +9,21 @@
 
 <main class="page statistiques-page">
 
-    <h1>Tableau de bord — Statistiques globales</h1>
+    <h1>Tableau de bord global</h1>
 
     <p>
         Vue d'ensemble de l'activité de l'assurance :
         clients, contrats, sinistres et finances.
     </p>
+
+    <section>
+        <h2>Analyse par l'IA</h2>
+        <p class="alerte ko" th:if="${erreurIA}" th:text="${erreurIA}"></p>
+        <p class="texte-ia" th:if="${analyseIA}" th:text="${analyseIA}"></p>
+        <form method="post" th:action="@{/admin/statistiques/analyse}">
+            <button type="submit">Analyser les chiffres avec l'IA</button>
+        </form>
+    </section>
 
 
     <!-- Vue d'ensemble -->

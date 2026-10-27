@@ -34,7 +34,7 @@
                     <option
                         th:each="contrat : ${contrats}"
                         th:value="${contrat.id}"
-                        th:text="${contrat.numeroContrat + ' — ' + contrat.typeAssurance.nom}">
+                        th:text="${contrat.numeroContrat + ' - ' + contrat.typeAssurance.nom}">
                     </option>
 
                 </select>

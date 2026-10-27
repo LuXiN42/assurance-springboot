@@ -18,7 +18,7 @@
                     <option value="">Choisir</option>
                     <option th:each="c:${contrats}"
                             th:value="${c.id}"
-                            th:text="${c.numeroContrat+' — '+c.client.prenom+' '+c.client.nom}">
+                            th:text="${c.numeroContrat+' - '+c.client.prenom+' '+c.client.nom}">
                     </option>
                 </select>
             </label>

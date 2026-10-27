@@ -36,7 +36,7 @@
 
             <p>
                 Type :
-                <span th:text="${sinistre.typeSinistre != null ? sinistre.typeSinistre : '—'}"></span>
+                <span th:text="${sinistre.typeSinistre != null ? sinistre.typeSinistre : '-'}"></span>
             </p>
 
             <p>
@@ -46,7 +46,7 @@
 
             <p>
                 Montant estimé :
-                <span th:text="${sinistre.montantEstime != null ? sinistre.montantEstime : '—'}"></span>
+                <span th:text="${sinistre.montantEstime != null ? sinistre.montantEstime : '-'}"></span>
             </p>
 
             <p>
@@ -73,7 +73,7 @@
                         th:text="${piece.nomOriginal}">
                     </a>
 
-                    —
+                    -
                     <span th:text="${piece.dateDepot}"></span>
                 </li>
 
@@ -101,7 +101,7 @@
                         th:text="${commentaire.auteur.prenom + ' ' + commentaire.auteur.nom}">
                     </strong>
 
-                    —
+                    -
 
                     <time th:text="${commentaire.dateCreation}"></time>
 

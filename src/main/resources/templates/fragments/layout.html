@@ -12,7 +12,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
-<head th:fragment="head-public(titre)">
+<th:block th:fragment="head-public(titre)">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="_csrf" th:if="${_csrf != null}" th:content="${_csrf.token}">
@@ -21,7 +21,7 @@
     <link rel="stylesheet" th:href="@{/css/bcare.css}">
     <link rel="stylesheet" th:href="@{/css/public.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
+</th:block>
 
 <body>
 
@@ -74,14 +74,10 @@
 
     <div class="droite">
         <th:block sec:authorize="isAuthenticated()">
-            <a class="moi" sec:authorize="hasRole('CLIENT')" th:href="@{/client/profil}" title="Mon profil">
+            <a class="moi" th:href="@{/profil}" title="Mon profil">
                 <span class="initiale" th:text="${#strings.toUpperCase(#strings.substring(#authentication.principal.prenom, 0, 1))}">J</span>
                 <span sec:authentication="principal.prenom">Prénom</span>
             </a>
-            <span class="moi" sec:authorize="!hasRole('CLIENT')">
-                <span class="initiale" th:text="${#strings.toUpperCase(#strings.substring(#authentication.principal.prenom, 0, 1))}">J</span>
-                <span sec:authentication="principal.prenom">Prénom</span>
-            </span>
             <button type="button" class="deco" data-modale="modale-deco" title="Déconnexion">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v9"/><path d="M6.4 6.4a8 8 0 1 0 11.2 0"/></svg>
                 <span>Déconnexion</span>
@@ -140,7 +136,7 @@
     </button>
 
     <section class="bibi-fenetre">
-        <header class="bibi-tete">
+        <div class="bibi-tete">
             <span class="bibi-avatar">B</span>
             <div class="titre"><b>Bibi</b><small>Assistant B'Care · en ligne</small></div>
             <button type="button" data-bibi="effacer" title="Nouvelle conversation">
@@ -149,7 +145,7 @@
             <button type="button" data-bibi="reduire" title="Réduire">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
             </button>
-        </header>
+        </div>
 
         <div class="bibi-messages"></div>
 

@@ -133,32 +133,4 @@ public class ClientController {
         vue.addObject("status", 403);
         return vue;
     }
-
-    @GetMapping("/profil")
-    public String profil(@AuthenticationPrincipal UtilisateurPrincipal principal, Model model) {
-        model.addAttribute("utilisateur", service.profil(principal.getId()));
-        return "client/profil";
-    }
-
-    @PostMapping("/profil")
-    public String modifierProfil(@RequestParam String nom, @RequestParam String prenom, @RequestParam String email,
-            @RequestParam(required=false) String telephone, @RequestParam(required=false) String adresse,
-            @AuthenticationPrincipal UtilisateurPrincipal principal, RedirectAttributes redirect) {
-        try {
-            service.modifierProfil(principal.getId(), nom, prenom, email, telephone, adresse);
-            redirect.addFlashAttribute("succes", "Vos informations ont été mises à jour.");
-        } catch (BusinessException e) { redirect.addFlashAttribute("erreur", e.getMessage()); }
-        return "redirect:/client/profil";
-    }
-
-    @PostMapping("/profil/mot-de-passe")
-    public String changerMotDePasse(@RequestParam String motDePasseActuel,
-            @RequestParam String nouveauMotDePasse, @RequestParam String confirmationMotDePasse,
-            @AuthenticationPrincipal UtilisateurPrincipal principal, RedirectAttributes redirect) {
-        try {
-            service.changerMotDePasse(principal.getId(), motDePasseActuel, nouveauMotDePasse, confirmationMotDePasse);
-            redirect.addFlashAttribute("succes", "Votre mot de passe a été changé.");
-        } catch (BusinessException e) { redirect.addFlashAttribute("erreur", e.getMessage()); }
-        return "redirect:/client/profil";
-    }
 }

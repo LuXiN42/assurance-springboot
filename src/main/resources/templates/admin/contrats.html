@@ -5,7 +5,7 @@
 <div th:replace="~{fragments/layout :: messages}"></div><h1>Contrats</h1>
 <p><a class="btn" th:href="@{/admin/contrats/nouveau}">+ Nouveau contrat</a></p>
 <table><thead><tr><th>Numéro</th><th>Client</th><th>Type</th><th>Début</th><th>Fin</th><th>Prime</th><th>Statut</th><th>Actions</th></tr></thead>
-<tbody><tr th:each="c : ${contrats}"><td th:text="${c.numeroContrat}"></td><td th:text="${c.client.prenom + ' ' + c.client.nom}"></td><td th:text="${c.typeAssurance.nom}"></td><td th:text="${#temporals.format(c.dateDebut,'dd/MM/yyyy')}"></td><td th:text="${c.dateFin == null ? '—' : #temporals.format(c.dateFin,'dd/MM/yyyy')}"></td><td th:text="${c.prime}"></td><td th:text="${c.statut}"></td><td><a th:href="@{/admin/contrats/{id}/modifier(id=${c.id})}">Modifier</a>
+<tbody><tr th:each="c : ${contrats}"><td th:text="${c.numeroContrat}"></td><td th:text="${c.client.prenom + ' ' + c.client.nom}"></td><td th:text="${c.typeAssurance.nom}"></td><td th:text="${#temporals.format(c.dateDebut,'dd/MM/yyyy')}"></td><td th:text="${c.dateFin == null ? '-' : #temporals.format(c.dateFin,'dd/MM/yyyy')}"></td><td th:text="${c.prime}"></td><td th:text="${c.statut}"></td><td><a th:href="@{/admin/contrats/{id}/modifier(id=${c.id})}">Modifier</a>
 <form th:action="@{/admin/contrats/{id}/supprimer(id=${c.id})}" method="post" style="display:inline" onsubmit="return confirm('Supprimer ce contrat ?');"><button type="submit">Supprimer</button></form></td></tr></tbody></table>
 </main>
 <th:block th:replace="~{fragments/layout :: pied}"></th:block>

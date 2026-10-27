@@ -8,6 +8,7 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -116,6 +117,23 @@ public class AssistantIAService {
             System.err.println("Réponse Gemini illisible : " + reponse.body());
             throw new BusinessException("Bibi n'a pas pu répondre à cette question.");
         }
+    }
+
+    // analyse du tableau de bord admin : on donne tous les chiffres à l'IA et on lui demande un résumé
+    public String analyserStatistiques(Map<String, Object> statistiques) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Tu es un analyste dans une compagnie d'assurance. ");
+        sb.append("Tu réponds en français, en texte simple sans mise en forme (pas de gras, pas de titres), ");
+        sb.append("de façon courte et claire. Tu t'appuies uniquement sur les chiffres ci-dessous, sans en inventer.\n\n");
+        for (Map.Entry<String, Object> e : statistiques.entrySet()) {
+            sb.append(e.getKey()).append(" : ").append(e.getValue()).append("\n");
+        }
+
+        List<String[]> question = new ArrayList<>();
+        question.add(new String[] { "user",
+                "Analyse ces chiffres en 5 à 8 phrases : les points forts, "
+                + "les points à surveiller et une ou deux recommandations." });
+        return repondre(sb.toString(), question);
     }
 
     // texte envoyé à l'IA pour lui expliquer son rôle et lui donner les infos du client

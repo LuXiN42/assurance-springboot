@@ -11,6 +11,7 @@ B'Care est une application web de gestion d'une compagnie d'assurance avec trois
 - Hibernate
 - MySQL 8
 - Serveur Tomcat embarqué (aucune installation séparée nécessaire)
+- API Gemini pour l'assistant Bibi
 
 ## Lancer le projet
 ### 1. Prérequis
@@ -70,15 +71,17 @@ spring.datasource.url=jdbc:mysql://localhost:3306/assurance_db?useSSL=false&allo
 spring.datasource.username=assurance
 spring.datasource.password=assuranceGroupeO
 ```
-Modifier ces valeurs si vous utilisez un autre utilisateur ou mot de passe. Il est également possible de définir les variables d'environnement `DB_URL`, `DB_USERNAME` et `DB_PASSWORD`.
+Modifier ces valeurs si vous utilisez un autre utilisateur ou mot de passe.
 
 #### 3.6 Créer les tables et charger les données de démonstration
-Les tables sont créées automatiquement par Hibernate au premier démarrage de l'application grâce à `spring.jpa.hibernate.ddl-auto=update`. Il n'est donc pas nécessaire de les créer à la main.
-
-Si le script de données de démonstration est fourni, après un premier lancement de l'application, le charger avec :
+L'application ne crée pas les tables elle-même (`spring.jpa.hibernate.ddl-auto=validate` : au démarrage, Spring vérifie seulement que les tables correspondent aux entités). Il faut donc lancer les deux scripts **avant** le premier démarrage, dans cet ordre :
 ```bash
+mysql -u assurance -p assurance_db < src/main/sql/schema.sql
 mysql -u assurance -p assurance_db < src/main/sql/data.sql
 ```
+`schema.sql` crée les tables, `data.sql` ajoute les données de démonstration (utilisateurs, contrats, sinistres, paiements).
+
+La base est la même que celle de la version J2EE : si elle a déjà été créée pour l'autre version, il n'y a rien à refaire.
 
 #### 3.7 Problèmes courants
 
@@ -87,11 +90,26 @@ mysql -u assurance -p assurance_db < src/main/sql/data.sql
 | `Access denied for user 'assurance'` | Mot de passe incorrect ou utilisateur non créé. | Refaire l'étape 3.3. |
 | `Unknown database 'assurance_db'` | Base de données non créée. | Refaire l'étape 3.3. |
 | `Communications link failure` | MySQL n'est pas démarré. | Refaire l'étape 3.1. |
+| `Schema-validation: missing table` | Les scripts SQL n'ont pas été lancés. | Refaire l'étape 3.6. |
 | `Public Key Retrieval is not allowed` | Le paramètre de récupération de clé publique manque dans l'URL JDBC. | Vérifier que l'URL contient `allowPublicKeyRetrieval=true`. |
 
-### 4. Compiler et lancer
+### 4. Clé de l'assistant Bibi (facultatif)
+Bibi utilise l'API Gemini. Sans clé, toute l'application marche sauf Bibi, qui affiche un message d'indisponibilité.
+
+1. Créer une clé gratuite sur https://aistudio.google.com/apikey
+2. Copier `src/main/resources/ia.properties.example` en `ia.properties` dans le même dossier
+3. Remplacer `COLLE_TA_CLE_ICI` par la clé
+
+`ia.properties` est dans le `.gitignore`, la clé ne part jamais sur GitHub. On peut aussi passer la clé par la variable d'environnement `GEMINI_API_KEY`.
+
+### 5. Compiler et lancer
+Sous Linux, macOS ou Git Bash :
 ```bash
 ./mvnw spring-boot:run
+```
+Sous Windows (invite de commandes) :
+```bash
+mvnw.cmd spring-boot:run
 ```
 Ou pour produire un jar exécutable :
 ```bash
@@ -101,7 +119,7 @@ java -jar target/assurance-springboot-0.0.1-SNAPSHOT.jar
 L'application est ensuite sur http://localhost:8081
 
 ## Comptes de test
-Tous les comptes ont le mot de passe indiqué dans le script de données de démonstration.
+Tous les comptes ont le mot de passe `Password123!`
 
 | Rôle | Email |
 |---|---|
@@ -117,6 +135,7 @@ On peut aussi créer un compte client depuis la page Inscription.
 - déclarer un sinistre avec pièces justificatives, et suivre son avancement
 - voir l'historique de ses paiements
 - modifier son profil et son mot de passe
+- poser ses questions à Bibi, l'assistant qui connaît ses contrats et ses sinistres (bulle sur toutes les pages client)
 ### Agent
 - consulter les clients
 - créer, modifier et rechercher des contrats
@@ -139,11 +158,12 @@ src/main/java/com/assurance/assurance_springboot/
 ├── model/ entités JPA et énumérations
 ├── repository/ interfaces Spring Data JPA
 ├── security/ authentification, redirection selon le rôle
-└── service/ règles métier
+└── service/ règles métier et appel à Gemini
 src/main/resources/
-├── templates/ pages Thymeleaf par profil + fragments communs
-├── static/css/ feuille de style
+├── templates/ pages Thymeleaf par profil + fragments communs + pages d'erreur
+├── static/ CSS, JavaScript, polices et favicon
 └── application.properties
+src/main/sql/ scripts de la base (schema.sql, data.sql)
 docs/ MCD
 ```
 
@@ -154,7 +174,7 @@ docs/ MCD
 - un client ne peut consulter que ses propres contrats, sinistres, paiements et pièces justificatives
 - validation côté serveur des formulaires et des fichiers déposés (taille, extension)
 - échappement automatique des données affichées par Thymeleaf (protection contre le XSS)
-- page d'accès refusé personnalisée
+- pages d'erreur personnalisées (403, 404, 500)
 
 ## Auteurs
 Jilani Mohamed et Loïc Robert, ING2 CY Tech.

@@ -1,0 +1,289 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="mcd" name="MCD">
+    <mxGraphModel dx="1241" dy="751" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1500" pageHeight="1250" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="titre" parent="1" style="text;html=1;fontSize=22;fontStyle=1;align=left;verticalAlign=middle;" value="MCD PLATEFORME B.CAREFULL" vertex="1">
+          <mxGeometry height="40" width="700" x="60" as="geometry" />
+        </mxCell>
+        <mxCell id="UTILISATEUR" parent="1" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=32;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;swimlaneFillColor=#ffffff;rounded=1;arcSize=4;fontSize=13;" value="UTILISATEUR" vertex="1">
+          <mxGeometry height="248" width="240" x="60" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="UTILISATEUR_0" parent="UTILISATEUR" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;fontStyle=4;" value="id_utilisateur" vertex="1">
+          <mxGeometry height="24" width="240" y="32" as="geometry" />
+        </mxCell>
+        <mxCell id="UTILISATEUR_1" parent="UTILISATEUR" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="email" vertex="1">
+          <mxGeometry height="24" width="240" y="56" as="geometry" />
+        </mxCell>
+        <mxCell id="UTILISATEUR_2" parent="UTILISATEUR" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="mot_de_passe_hash" vertex="1">
+          <mxGeometry height="24" width="240" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="UTILISATEUR_3" parent="UTILISATEUR" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="role" vertex="1">
+          <mxGeometry height="24" width="240" y="104" as="geometry" />
+        </mxCell>
+        <mxCell id="UTILISATEUR_4" parent="UTILISATEUR" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="nom" vertex="1">
+          <mxGeometry height="24" width="240" y="128" as="geometry" />
+        </mxCell>
+        <mxCell id="UTILISATEUR_5" parent="UTILISATEUR" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="prenom" vertex="1">
+          <mxGeometry height="24" width="240" y="152" as="geometry" />
+        </mxCell>
+        <mxCell id="UTILISATEUR_6" parent="UTILISATEUR" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="telephone" vertex="1">
+          <mxGeometry height="24" width="240" y="176" as="geometry" />
+        </mxCell>
+        <mxCell id="UTILISATEUR_7" parent="UTILISATEUR" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="adresse" vertex="1">
+          <mxGeometry height="24" width="240" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="UTILISATEUR_8" parent="UTILISATEUR" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="date_inscription" vertex="1">
+          <mxGeometry height="24" width="240" y="224" as="geometry" />
+        </mxCell>
+        <mxCell id="PAIEMENT" parent="1" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=32;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;swimlaneFillColor=#ffffff;rounded=1;arcSize=4;fontSize=13;" value="PAIEMENT" vertex="1">
+          <mxGeometry height="152" width="240" x="600" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PAIEMENT_0" parent="PAIEMENT" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;fontStyle=4;" value="id_paiement" vertex="1">
+          <mxGeometry height="24" width="240" y="32" as="geometry" />
+        </mxCell>
+        <mxCell id="PAIEMENT_1" parent="PAIEMENT" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="montant" vertex="1">
+          <mxGeometry height="24" width="240" y="56" as="geometry" />
+        </mxCell>
+        <mxCell id="PAIEMENT_2" parent="PAIEMENT" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="date" vertex="1">
+          <mxGeometry height="24" width="240" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="PAIEMENT_3" parent="PAIEMENT" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="mode_paiement" vertex="1">
+          <mxGeometry height="24" width="240" y="104" as="geometry" />
+        </mxCell>
+        <mxCell id="PAIEMENT_4" parent="PAIEMENT" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="statut" vertex="1">
+          <mxGeometry height="24" width="240" y="128" as="geometry" />
+        </mxCell>
+        <mxCell id="CONTRAT" parent="1" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=32;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;swimlaneFillColor=#ffffff;rounded=1;arcSize=4;fontSize=13;" value="CONTRAT" vertex="1">
+          <mxGeometry height="176" width="240" x="600" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="CONTRAT_0" parent="CONTRAT" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;fontStyle=4;" value="id_contrat" vertex="1">
+          <mxGeometry height="24" width="240" y="32" as="geometry" />
+        </mxCell>
+        <mxCell id="CONTRAT_1" parent="CONTRAT" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="numero_contrat" vertex="1">
+          <mxGeometry height="24" width="240" y="56" as="geometry" />
+        </mxCell>
+        <mxCell id="CONTRAT_2" parent="CONTRAT" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="date_debut" vertex="1">
+          <mxGeometry height="24" width="240" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="CONTRAT_3" parent="CONTRAT" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="date_fin" vertex="1">
+          <mxGeometry height="24" width="240" y="104" as="geometry" />
+        </mxCell>
+        <mxCell id="CONTRAT_4" parent="CONTRAT" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="prime" vertex="1">
+          <mxGeometry height="24" width="240" y="128" as="geometry" />
+        </mxCell>
+        <mxCell id="CONTRAT_5" parent="CONTRAT" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="statut" vertex="1">
+          <mxGeometry height="24" width="240" y="152" as="geometry" />
+        </mxCell>
+        <mxCell id="TYPE_ASSURANCE" parent="1" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=32;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;swimlaneFillColor=#ffffff;rounded=1;arcSize=4;fontSize=13;" value="TYPE_ASSURANCE" vertex="1">
+          <mxGeometry height="128" width="240" x="1140" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="TYPE_ASSURANCE_0" parent="TYPE_ASSURANCE" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;fontStyle=4;" value="id_type_assurance" vertex="1">
+          <mxGeometry height="24" width="240" y="32" as="geometry" />
+        </mxCell>
+        <mxCell id="TYPE_ASSURANCE_1" parent="TYPE_ASSURANCE" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="nom" vertex="1">
+          <mxGeometry height="24" width="240" y="56" as="geometry" />
+        </mxCell>
+        <mxCell id="TYPE_ASSURANCE_2" parent="TYPE_ASSURANCE" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="description" vertex="1">
+          <mxGeometry height="24" width="240" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="TYPE_ASSURANCE_3" parent="TYPE_ASSURANCE" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="prix_base" vertex="1">
+          <mxGeometry height="24" width="240" y="104" as="geometry" />
+        </mxCell>
+        <mxCell id="GARANTIE" parent="1" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=32;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;swimlaneFillColor=#ffffff;rounded=1;arcSize=4;fontSize=13;" value="GARANTIE" vertex="1">
+          <mxGeometry height="104" width="240" x="1140" y="720" as="geometry" />
+        </mxCell>
+        <mxCell id="GARANTIE_0" parent="GARANTIE" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;fontStyle=4;" value="id_garantie" vertex="1">
+          <mxGeometry height="24" width="240" y="32" as="geometry" />
+        </mxCell>
+        <mxCell id="GARANTIE_1" parent="GARANTIE" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="nom" vertex="1">
+          <mxGeometry height="24" width="240" y="56" as="geometry" />
+        </mxCell>
+        <mxCell id="GARANTIE_2" parent="GARANTIE" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="description" vertex="1">
+          <mxGeometry height="24" width="240" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="SINISTRE" parent="1" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=32;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;swimlaneFillColor=#ffffff;rounded=1;arcSize=4;fontSize=13;" value="SINISTRE" vertex="1">
+          <mxGeometry height="224" width="240" x="600" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="SINISTRE_0" parent="SINISTRE" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;fontStyle=4;" value="id_sinistre" vertex="1">
+          <mxGeometry height="24" width="240" y="32" as="geometry" />
+        </mxCell>
+        <mxCell id="SINISTRE_1" parent="SINISTRE" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="numero_sinistre" vertex="1">
+          <mxGeometry height="24" width="240" y="56" as="geometry" />
+        </mxCell>
+        <mxCell id="SINISTRE_2" parent="SINISTRE" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="date" vertex="1">
+          <mxGeometry height="24" width="240" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="SINISTRE_3" parent="SINISTRE" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="description" vertex="1">
+          <mxGeometry height="24" width="240" y="104" as="geometry" />
+        </mxCell>
+        <mxCell id="SINISTRE_4" parent="SINISTRE" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="montant_estime" vertex="1">
+          <mxGeometry height="24" width="240" y="128" as="geometry" />
+        </mxCell>
+        <mxCell id="SINISTRE_5" parent="SINISTRE" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="type_sinistre" vertex="1">
+          <mxGeometry height="24" width="240" y="152" as="geometry" />
+        </mxCell>
+        <mxCell id="SINISTRE_6" parent="SINISTRE" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="statut" vertex="1">
+          <mxGeometry height="24" width="240" y="176" as="geometry" />
+        </mxCell>
+        <mxCell id="SINISTRE_7" parent="SINISTRE" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="montant_indemnisation" vertex="1">
+          <mxGeometry height="24" width="240" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="COMMENTAIRE" parent="1" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=32;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;swimlaneFillColor=#ffffff;rounded=1;arcSize=4;fontSize=13;" value="COMMENTAIRE" vertex="1">
+          <mxGeometry height="104" width="240" x="60" y="760" as="geometry" />
+        </mxCell>
+        <mxCell id="COMMENTAIRE_0" parent="COMMENTAIRE" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;fontStyle=4;" value="id_commentaire" vertex="1">
+          <mxGeometry height="24" width="240" y="32" as="geometry" />
+        </mxCell>
+        <mxCell id="COMMENTAIRE_1" parent="COMMENTAIRE" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="texte" vertex="1">
+          <mxGeometry height="24" width="240" y="56" as="geometry" />
+        </mxCell>
+        <mxCell id="COMMENTAIRE_2" parent="COMMENTAIRE" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="date_creation" vertex="1">
+          <mxGeometry height="24" width="240" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="PIECE_JUSTIFICATIVE" parent="1" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=32;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;swimlaneFillColor=#ffffff;rounded=1;arcSize=4;fontSize=13;" value="PIECE_JUSTIFICATIVE" vertex="1">
+          <mxGeometry height="176" width="240" x="600" y="1030" as="geometry" />
+        </mxCell>
+        <mxCell id="PIECE_JUSTIFICATIVE_0" parent="PIECE_JUSTIFICATIVE" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;fontStyle=4;" value="id_piece" vertex="1">
+          <mxGeometry height="24" width="240" y="32" as="geometry" />
+        </mxCell>
+        <mxCell id="PIECE_JUSTIFICATIVE_1" parent="PIECE_JUSTIFICATIVE" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="nom_original" vertex="1">
+          <mxGeometry height="24" width="240" y="56" as="geometry" />
+        </mxCell>
+        <mxCell id="PIECE_JUSTIFICATIVE_2" parent="PIECE_JUSTIFICATIVE" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="nom_stocke" vertex="1">
+          <mxGeometry height="24" width="240" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="PIECE_JUSTIFICATIVE_3" parent="PIECE_JUSTIFICATIVE" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="type_mime" vertex="1">
+          <mxGeometry height="24" width="240" y="104" as="geometry" />
+        </mxCell>
+        <mxCell id="PIECE_JUSTIFICATIVE_4" parent="PIECE_JUSTIFICATIVE" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="taille" vertex="1">
+          <mxGeometry height="24" width="240" y="128" as="geometry" />
+        </mxCell>
+        <mxCell id="PIECE_JUSTIFICATIVE_5" parent="PIECE_JUSTIFICATIVE" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=10;fontSize=12;" value="date_depot" vertex="1">
+          <mxGeometry height="24" width="240" y="152" as="geometry" />
+        </mxCell>
+        <mxCell id="SOUSCRIRE" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=12;" value="Souscrire" vertex="1">
+          <mxGeometry height="50" width="130" x="380" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="REGLER" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=12;" value="Regler" vertex="1">
+          <mxGeometry height="50" width="130" x="655" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="RELEVER_DE" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=12;" value="Relever de" vertex="1">
+          <mxGeometry height="50" width="130" x="920" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="PROPOSER" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=12;" value="Proposer" vertex="1">
+          <mxGeometry height="50" width="130" x="1195" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="INCLURE" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=12;" value="Inclure" vertex="1">
+          <mxGeometry height="50" width="130" x="920" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="CONCERNER" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=12;" value="Concerner" vertex="1">
+          <mxGeometry height="50" width="130" x="655" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="PORTER_SUR" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=12;" value="Porter sur" vertex="1">
+          <mxGeometry height="50" width="130" x="380" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="REDIGER" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=12;" value="Rediger" vertex="1">
+          <mxGeometry height="50" width="130" x="115" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="JUSTIFIER" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=12;" value="Justifier" vertex="1">
+          <mxGeometry height="50" width="130" x="655" y="950" as="geometry" />
+        </mxCell>
+        <mxCell id="l0" edge="1" parent="1" source="UTILISATEUR" style="endArrow=none;html=1;rounded=0;strokeColor=#555555;strokeWidth=1.3;fontSize=12;fontStyle=1;labelBackgroundColor=#ffffff;" target="SOUSCRIRE" value="0,n">
+          <mxGeometry relative="1" x="-0.55" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l1" edge="1" parent="1" source="CONTRAT" style="endArrow=none;html=1;rounded=0;strokeColor=#555555;strokeWidth=1.3;fontSize=12;fontStyle=1;labelBackgroundColor=#ffffff;" target="SOUSCRIRE" value="1,1">
+          <mxGeometry relative="1" x="-0.55" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l2" edge="1" parent="1" source="PAIEMENT" style="endArrow=none;html=1;rounded=0;strokeColor=#555555;strokeWidth=1.3;fontSize=12;fontStyle=1;labelBackgroundColor=#ffffff;" target="REGLER" value="1,1">
+          <mxGeometry relative="1" x="-0.55" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l3" edge="1" parent="1" source="CONTRAT" style="endArrow=none;html=1;rounded=0;strokeColor=#555555;strokeWidth=1.3;fontSize=12;fontStyle=1;labelBackgroundColor=#ffffff;" target="REGLER" value="0,n">
+          <mxGeometry relative="1" x="-0.55" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l4" edge="1" parent="1" source="CONTRAT" style="endArrow=none;html=1;rounded=0;strokeColor=#555555;strokeWidth=1.3;fontSize=12;fontStyle=1;labelBackgroundColor=#ffffff;" target="RELEVER_DE" value="1,1">
+          <mxGeometry relative="1" x="-0.55" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l5" edge="1" parent="1" source="TYPE_ASSURANCE" style="endArrow=none;html=1;rounded=0;strokeColor=#555555;strokeWidth=1.3;fontSize=12;fontStyle=1;labelBackgroundColor=#ffffff;" target="RELEVER_DE" value="0,n">
+          <mxGeometry relative="1" x="-0.55" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l6" edge="1" parent="1" source="TYPE_ASSURANCE" style="endArrow=none;html=1;rounded=0;strokeColor=#555555;strokeWidth=1.3;fontSize=12;fontStyle=1;labelBackgroundColor=#ffffff;" target="PROPOSER" value="0,n">
+          <mxGeometry relative="1" x="-0.55" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l7" edge="1" parent="1" source="GARANTIE" style="endArrow=none;html=1;rounded=0;strokeColor=#555555;strokeWidth=1.3;fontSize=12;fontStyle=1;labelBackgroundColor=#ffffff;" target="PROPOSER" value="0,n">
+          <mxGeometry relative="1" x="-0.55" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l8" edge="1" parent="1" source="CONTRAT" style="endArrow=none;html=1;rounded=0;strokeColor=#555555;strokeWidth=1.3;fontSize=12;fontStyle=1;labelBackgroundColor=#ffffff;" target="INCLURE" value="0,n">
+          <mxGeometry relative="1" x="-0.55" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l9" edge="1" parent="1" source="GARANTIE" style="endArrow=none;html=1;rounded=0;strokeColor=#555555;strokeWidth=1.3;fontSize=12;fontStyle=1;labelBackgroundColor=#ffffff;" target="INCLURE" value="0,n">
+          <mxGeometry relative="1" x="-0.55" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l10" edge="1" parent="1" source="SINISTRE" style="endArrow=none;html=1;rounded=0;strokeColor=#555555;strokeWidth=1.3;fontSize=12;fontStyle=1;labelBackgroundColor=#ffffff;" target="CONCERNER" value="1,1">
+          <mxGeometry relative="1" x="-0.55" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l11" edge="1" parent="1" source="CONTRAT" style="endArrow=none;html=1;rounded=0;strokeColor=#555555;strokeWidth=1.3;fontSize=12;fontStyle=1;labelBackgroundColor=#ffffff;" target="CONCERNER" value="0,n">
+          <mxGeometry relative="1" x="-0.55" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l12" edge="1" parent="1" source="COMMENTAIRE" style="endArrow=none;html=1;rounded=0;strokeColor=#555555;strokeWidth=1.3;fontSize=12;fontStyle=1;labelBackgroundColor=#ffffff;" target="PORTER_SUR" value="1,1">
+          <mxGeometry relative="1" x="-0.55" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l13" edge="1" parent="1" source="SINISTRE" style="endArrow=none;html=1;rounded=0;strokeColor=#555555;strokeWidth=1.3;fontSize=12;fontStyle=1;labelBackgroundColor=#ffffff;" target="PORTER_SUR" value="0,n">
+          <mxGeometry relative="1" x="-0.55" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l14" edge="1" parent="1" source="UTILISATEUR" style="endArrow=none;html=1;rounded=0;strokeColor=#555555;strokeWidth=1.3;fontSize=12;fontStyle=1;labelBackgroundColor=#ffffff;" target="REDIGER" value="0,n">
+          <mxGeometry relative="1" x="-0.55" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l15" edge="1" parent="1" source="COMMENTAIRE" style="endArrow=none;html=1;rounded=0;strokeColor=#555555;strokeWidth=1.3;fontSize=12;fontStyle=1;labelBackgroundColor=#ffffff;" target="REDIGER" value="1,1">
+          <mxGeometry relative="1" x="-0.55" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l16" edge="1" parent="1" source="PIECE_JUSTIFICATIVE" style="endArrow=none;html=1;rounded=0;strokeColor=#555555;strokeWidth=1.3;fontSize=12;fontStyle=1;labelBackgroundColor=#ffffff;" target="JUSTIFIER" value="1,1">
+          <mxGeometry relative="1" x="-0.55" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l17" edge="1" parent="1" source="SINISTRE" style="endArrow=none;html=1;rounded=0;strokeColor=#555555;strokeWidth=1.3;fontSize=12;fontStyle=1;labelBackgroundColor=#ffffff;" target="JUSTIFIER" value="0,n">
+          <mxGeometry relative="1" x="-0.55" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="legende" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=12;fillColor=#f5f5f5;strokeColor=#999999;fontSize=12;arcSize=4;" value="&lt;b&gt;Énumérations&lt;/b&gt;&lt;br&gt;role : CLIENT, AGENT, ADMIN&lt;br&gt;statut (contrat) : EN_ATTENTE, ACTIF, SUSPENDU, EXPIRE, RESILIE&lt;br&gt;statut (sinistre) : DECLARE, EN_ANALYSE, ACCEPTE, REFUSE, INDEMNISE&lt;br&gt;statut (paiement) : EN_ATTENTE, EFFECTUE, ECHOUE, ANNULE&lt;br&gt;mode_paiement : CARTE, VIREMENT, PRELEVEMENT, ESPECES, CHEQUE, AUTRE&lt;br&gt;&lt;br&gt;&lt;u&gt;souligné&lt;/u&gt; = identifiant" vertex="1">
+          <mxGeometry height="170" width="420" x="1000" y="900" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

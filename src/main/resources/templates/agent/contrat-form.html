@@ -29,7 +29,7 @@
                     <option th:each="c:${clients}"
                             th:value="${c.id}"
                             th:selected="${clientId != null ? clientId == c.id : contrat.client != null and contrat.client.id == c.id}"
-                            th:text="${c.prenom+' '+c.nom+' — '+c.email}"></option>
+                            th:text="${c.prenom+' '+c.nom+' - '+c.email}"></option>
                 </select>
             </label>
 

@@ -79,7 +79,7 @@
 
         <ul>
             <li th:each="p:${sinistre.pieces}"
-                th:text="${p.nomOriginal+' — '+p.dateDepot}">
+                th:text="${p.nomOriginal+' - '+p.dateDepot}">
             </li>
 
             <li th:if="${#lists.isEmpty(sinistre.pieces)}">
@@ -92,7 +92,7 @@
         <ul>
             <li th:each="c:${commentaires}">
                 <b th:text="${c.auteur.prenom+' '+c.auteur.nom}"></b>
-                —
+                -
                 <span th:text="${c.dateCreation}"></span>
 
                 <p th:text="${c.texte}"></p>

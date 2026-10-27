@@ -53,7 +53,7 @@ public class ClientEspaceService {
     }
 
     @Transactional(readOnly = true)
-    public Utilisateur profil(Long clientId) { return client(clientId); }
+    public Utilisateur profil(Long id) { return utilisateur(id); }
 
     @Transactional(readOnly = true)
     public List<Contrat> contrats(Long clientId) { return contrats.findByClientIdOrderByDateDebutDesc(clientId); }
@@ -164,7 +164,7 @@ public class ClientEspaceService {
     }
 
     public void modifierProfil(Long id, String nom, String prenom, String email, String telephone, String adresse) {
-        Utilisateur u = client(id);
+        Utilisateur u = utilisateur(id);
         if (vide(nom) || nom.trim().length() > 100) throw new BusinessException("Le nom est obligatoire (100 caractères max).");
         if (vide(prenom) || prenom.trim().length() > 100) throw new BusinessException("Le prénom est obligatoire (100 caractères max).");
         if (email == null || !email.trim().matches("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$")) throw new BusinessException("Email invalide.");
@@ -178,13 +178,18 @@ public class ClientEspaceService {
     }
 
     public void changerMotDePasse(Long id, String actuel, String nouveau, String confirmation) {
-        Utilisateur u = client(id);
+        Utilisateur u = utilisateur(id);
         if (actuel == null || !passwordEncoder.matches(actuel, u.getPasswordHash()))
             throw new BusinessException("Le mot de passe actuel est incorrect.");
         if (nouveau == null || nouveau.length() < 8) throw new BusinessException("Le nouveau mot de passe doit contenir au moins 8 caractères.");
         if (!nouveau.equals(confirmation)) throw new BusinessException("La confirmation du nouveau mot de passe ne correspond pas.");
         u.setPasswordHash(passwordEncoder.encode(nouveau));
         utilisateurs.save(u);
+    }
+
+    // le profil est commun aux trois rôles
+    private Utilisateur utilisateur(Long id) {
+        return utilisateurs.findById(id).orElseThrow(() -> new BusinessException("Utilisateur introuvable."));
     }
 
     private Utilisateur client(Long id) {

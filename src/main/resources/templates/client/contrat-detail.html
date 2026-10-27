@@ -34,7 +34,7 @@
             <p>
                 Période :
                 <span th:text="${contrat.dateDebut}"></span>
-                —
+                -
                 <span th:text="${contrat.dateFin != null ? contrat.dateFin : 'Sans date de fin'}"></span>
             </p>
 
@@ -61,7 +61,7 @@
 
                     <span
                         th:if="${garantie.description != null}"
-                        th:text="${' — ' + garantie.description}">
+                        th:text="${' : ' + garantie.description}">
                     </span>
                 </li>
 
