@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/layout :: head('Type d''assurance')}"></head>
+<head th:replace="~{fragments/layout :: head('Type d’assurance')}"></head>
 <body>
 <header th:replace="~{fragments/layout :: header}"></header>
 <main>
@@ -16,6 +16,17 @@
         <p><label>Prix de base (€)
             <input name="prixBase" required
                    th:value="${prixSaisi != null} ? ${prixSaisi} : ${type.prixBase}"></label></p>
+        <fieldset>
+            <legend>Garanties disponibles</legend>
+            <label th:each="g : ${garanties}" style="display:block">
+                <input type="checkbox" name="garantieIds" th:value="${g.id}"
+                       th:checked="${garantiesCochees != null}
+                                   ? ${#lists.contains(garantiesCochees, g.id)}
+                                   : ${type.garantiesDisponibles.contains(g)}">
+                <span th:text="${g.nom}"></span>
+            </label>
+            <p th:if="${#lists.isEmpty(garanties)}">Aucune garantie en base. Crée-les d'abord côté agent.</p>
+        </fieldset>
         <button type="submit">Enregistrer</button>
         <a th:href="@{/admin/types}">Annuler</a>
     </form>

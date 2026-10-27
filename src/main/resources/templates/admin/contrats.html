@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Contrats')}"></head>
+<body><header th:replace="~{fragments/layout :: header}"></header><main>
+<div th:replace="~{fragments/layout :: messages}"></div><h1>Contrats</h1>
+<p><a class="btn" th:href="@{/admin/contrats/nouveau}">+ Nouveau contrat</a></p>
+<table><thead><tr><th>Numéro</th><th>Client</th><th>Type</th><th>Début</th><th>Fin</th><th>Prime</th><th>Statut</th><th>Actions</th></tr></thead>
+<tbody><tr th:each="c : ${contrats}"><td th:text="${c.numeroContrat}"></td><td th:text="${c.client.prenom + ' ' + c.client.nom}"></td><td th:text="${c.typeAssurance.nom}"></td><td th:text="${#temporals.format(c.dateDebut,'dd/MM/yyyy')}"></td><td th:text="${c.dateFin == null ? '—' : #temporals.format(c.dateFin,'dd/MM/yyyy')}"></td><td th:text="${c.prime}"></td><td th:text="${c.statut}"></td><td><a th:href="@{/admin/contrats/{id}/modifier(id=${c.id})}">Modifier</a>
+<form th:action="@{/admin/contrats/{id}/supprimer(id=${c.id})}" method="post" style="display:inline" onsubmit="return confirm('Supprimer ce contrat ?');"><button type="submit">Supprimer</button></form></td></tr></tbody></table>
+</main><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"8607d2a720d14b038279025b2b5a82e5","spa":2}' crossorigin="anonymous"></script>
+</body></html>

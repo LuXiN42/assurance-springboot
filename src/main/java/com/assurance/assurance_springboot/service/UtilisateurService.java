@@ -64,6 +64,9 @@ public class UtilisateurService {
             u.setPasswordHash(encoder.encode(motDePasse));
         } else {
             u = trouver(id);
+            if (u.getRole() != role && contratRepo.existsByClientId(id))
+                throw new BusinessException(
+                    "Impossible de changer le rôle : cet utilisateur possède des contrats.");
             if (motDePasse != null && !motDePasse.isBlank()) {
                 if (motDePasse.length() < 8)
                     throw new BusinessException("Mot de passe : 8 caractères minimum.");

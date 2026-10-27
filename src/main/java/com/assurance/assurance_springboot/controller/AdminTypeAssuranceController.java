@@ -1,15 +1,16 @@
 package com.assurance.assurance_springboot.controller;
 
 import java.math.BigDecimal;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.assurance.assurance_springboot.service.TypeAssuranceService;
 import com.assurance.assurance_springboot.model.TypeAssurance;
 import com.assurance.assurance_springboot.service.BusinessException;
-
+import com.assurance.assurance_springboot.service.TypeAssuranceService;
 
 @Controller
 @RequestMapping("/admin/types")
@@ -30,12 +31,14 @@ public class AdminTypeAssuranceController {
     @GetMapping("/nouveau")
     public String nouveau(Model model) {
         model.addAttribute("type", new TypeAssurance());
+        model.addAttribute("garanties", service.listerGaranties());
         return "admin/type-form";
     }
 
     @GetMapping("/{id}/modifier")
     public String modifier(@PathVariable Long id, Model model) {
         model.addAttribute("type", service.trouver(id));
+        model.addAttribute("garanties", service.listerGaranties());
         return "admin/type-form";
     }
 
@@ -44,11 +47,12 @@ public class AdminTypeAssuranceController {
                               @RequestParam String nom,
                               @RequestParam(required = false) String description,
                               @RequestParam String prixBase,
+                              @RequestParam(required = false) List<Long> garantieIds,
                               Model model,
                               RedirectAttributes ra) {
         try {
             BigDecimal prix = new BigDecimal(prixBase.replace(',', '.'));
-            service.enregistrer(id, nom, description, prix);
+            service.enregistrer(id, nom, description, prix, garantieIds);
             ra.addFlashAttribute("succes", "Type enregistré.");
             return "redirect:/admin/types";
         } catch (NumberFormatException | BusinessException e) {
@@ -58,6 +62,8 @@ public class AdminTypeAssuranceController {
             t.setDescription(description);
             model.addAttribute("type", t);
             model.addAttribute("prixSaisi", prixBase);
+            model.addAttribute("garanties", service.listerGaranties());
+            model.addAttribute("garantiesCochees", garantieIds == null ? List.of() : garantieIds);
             model.addAttribute("erreur", e instanceof BusinessException ? e.getMessage() : "Prix invalide.");
             return "admin/type-form";
         }

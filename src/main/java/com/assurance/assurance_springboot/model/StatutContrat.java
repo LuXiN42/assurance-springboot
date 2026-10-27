@@ -1,12 +1,6 @@
 package com.assurance.assurance_springboot.model;
 
-/**
- * Statuts d'un contrat. Stockés en VARCHAR(32) dans {@code contrats.statut}.
- */
+/** Statuts métier des contrats définis dans le cahier des charges. */
 public enum StatutContrat {
-    EN_ATTENTE,
-    ACTIF,
-    SUSPENDU,
-    EXPIRE,
-    RESILIE
+    EN_ATTENTE, ACTIF, SUSPENDU, EXPIRE, RESILIE
 }

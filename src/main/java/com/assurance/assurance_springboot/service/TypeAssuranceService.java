@@ -1,14 +1,18 @@
 package com.assurance.assurance_springboot.service;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.List;
+
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.assurance.assurance_springboot.repository.TypeAssuranceRepository;
-import com.assurance.assurance_springboot.repository.ContratRepository;
+import com.assurance.assurance_springboot.model.Garantie;
 import com.assurance.assurance_springboot.model.TypeAssurance;
+import com.assurance.assurance_springboot.repository.ContratRepository;
+import com.assurance.assurance_springboot.repository.GarantieRepository;
+import com.assurance.assurance_springboot.repository.TypeAssuranceRepository;
 
 @Service
 @Transactional
@@ -16,10 +20,14 @@ public class TypeAssuranceService {
 
     private final TypeAssuranceRepository repo;
     private final ContratRepository contratRepo;
+    private final GarantieRepository garantieRepo;
 
-    public TypeAssuranceService(TypeAssuranceRepository repo, ContratRepository contratRepo) {
+    public TypeAssuranceService(TypeAssuranceRepository repo,
+                                ContratRepository contratRepo,
+                                GarantieRepository garantieRepo) {
         this.repo = repo;
         this.contratRepo = contratRepo;
+        this.garantieRepo = garantieRepo;
     }
 
     @Transactional(readOnly = true)
@@ -28,25 +36,30 @@ public class TypeAssuranceService {
     }
 
     @Transactional(readOnly = true)
-    public TypeAssurance trouver(Long id) {
-        return repo.findById(id).orElseThrow(() -> new BusinessException("Type introuvable."));
+    public List<Garantie> listerGaranties() {
+        return garantieRepo.findAll(Sort.by("nom"));
     }
 
-    public void enregistrer(Long id, String nom, String description, BigDecimal prixBase) {
-        if (nom == null || nom.isBlank() || nom.length() > 150)
-            throw new BusinessException("Le nom est obligatoire (150 caractères max).");
+    @Transactional(readOnly = true)
+    public TypeAssurance trouver(Long id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new BusinessException("Type d'assurance introuvable."));
+    }
+
+    public void enregistrer(Long id, String nom, String description, BigDecimal prixBase,
+                            List<Long> garantieIds) {
+        if (nom == null || nom.isBlank())
+            throw new BusinessException("Le nom est obligatoire.");
         if (prixBase == null || prixBase.signum() < 0)
             throw new BusinessException("Le prix de base doit être positif ou nul.");
-        nom = nom.trim();
-        boolean doublon = (id == null)
-                ? repo.existsByNomIgnoreCase(nom)
-                : repo.existsByNomIgnoreCaseAndIdNot(nom, id);
-        if (doublon) throw new BusinessException("Ce type d'assurance existe déjà.");
 
         TypeAssurance t = (id == null) ? new TypeAssurance() : trouver(id);
-        t.setNom(nom);
+        t.setNom(nom.trim());
         t.setDescription(description);
         t.setPrixBase(prixBase);
+        t.setGarantiesDisponibles(garantieIds == null
+                ? new HashSet<>()
+                : new HashSet<>(garantieRepo.findAllById(garantieIds)));
         repo.save(t);
     }
 

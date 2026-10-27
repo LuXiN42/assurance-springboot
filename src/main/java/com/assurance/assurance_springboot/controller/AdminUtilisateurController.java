@@ -5,11 +5,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import com.assurance.assurance_springboot.service.UtilisateurService;
 import com.assurance.assurance_springboot.model.Utilisateur;
 import com.assurance.assurance_springboot.model.Role;
 import com.assurance.assurance_springboot.service.BusinessException;
+import com.assurance.assurance_springboot.security.UtilisateurPrincipal;
 
 
 @Controller
@@ -56,6 +60,17 @@ public class AdminUtilisateurController {
                               Model model, RedirectAttributes ra) {
         try {
             service.enregistrer(id, nom, prenom, email, telephone, adresse, motDePasse, role);
+
+            // Si l'admin vient de modifier son propre compte, on rafraîchit la session
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            if (id != null && auth != null
+                    && auth.getPrincipal() instanceof UtilisateurPrincipal p
+                    && id.equals(p.getUtilisateur().getId())) {
+                UtilisateurPrincipal nouveau = new UtilisateurPrincipal(service.trouver(id));
+                SecurityContextHolder.getContext().setAuthentication(
+                    new UsernamePasswordAuthenticationToken(nouveau, auth.getCredentials(), nouveau.getAuthorities()));
+            }
+
             ra.addFlashAttribute("succes", "Utilisateur enregistré.");
             return "redirect:/admin/utilisateurs";
         } catch (BusinessException e) {

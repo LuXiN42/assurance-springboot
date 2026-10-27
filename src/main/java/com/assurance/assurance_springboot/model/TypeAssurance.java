@@ -16,6 +16,7 @@ import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -47,11 +48,11 @@ public class TypeAssurance {
     @OneToMany(mappedBy = "typeAssurance", fetch = FetchType.LAZY)
     private Set<Contrat> contrats = new LinkedHashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(name = "type_assurance_garanties",
-            joinColumns = @JoinColumn(name = "type_assurance_id"),
-            inverseJoinColumns = @JoinColumn(name = "garantie_id"))
-    private Set<Garantie> garantiesDisponibles = new LinkedHashSet<>();
+        joinColumns = @JoinColumn(name = "type_assurance_id"),
+        inverseJoinColumns = @JoinColumn(name = "garantie_id"))
+    private Set<Garantie> garantiesDisponibles = new HashSet<>();
 
     public TypeAssurance() {
     }

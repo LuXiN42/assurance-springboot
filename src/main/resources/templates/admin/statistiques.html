@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('Statistiques globales')}"></head>
+
+<body>
+
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main class="statistiques-page">
+
+    <h1>Tableau de bord — Statistiques globales</h1>
+
+    <p>
+        Vue d'ensemble de l'activité de l'assurance :
+        clients, contrats, sinistres et finances.
+    </p>
+
+    <style>
+        .statistiques-page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        .statistiques-page section {
+            margin: 2rem 0;
+            padding: 1.25rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .statistiques-page h2 {
+            margin-top: 0;
+        }
+
+        .statistiques-cartes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 1rem;
+        }
+
+        .statistique-carte {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .statistique-carte h3 {
+            margin-top: 0;
+            font-size: 1rem;
+        }
+
+        .statistique-valeur {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .statistiques-page table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .statistiques-page th,
+        .statistiques-page td {
+            padding: 0.7rem;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .statistiques-page th {
+            background: #f4f4f4;
+        }
+
+        .statistiques-note {
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .statistiques-page {
+                padding: 0.75rem;
+            }
+
+            .statistiques-page table {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+
+    <!-- Vue d'ensemble -->
+    <section>
+        <h2>Vue d'ensemble</h2>
+
+        <div class="statistiques-cartes">
+
+            <article class="statistique-carte">
+                <h3>Clients</h3>
+                <p class="statistique-valeur"
+                   th:text="${nombreClients}">0</p>
+            </article>
+
+            <article class="statistique-carte">
+                <h3>Nouveaux clients</h3>
+                <p class="statistique-valeur"
+                   th:text="${nouveauxClients}">0</p>
+                <p class="statistiques-note"
+                   th:text="|Du ${debutPeriodeNouveauxClients} au ${finPeriodeNouveauxClients}|">
+                    Période de référence
+                </p>
+            </article>
+
+            <article class="statistique-carte">
+                <h3>Contrats</h3>
+                <p class="statistique-valeur"
+                   th:text="${nombreContrats}">0</p>
+            </article>
+
+            <article class="statistique-carte">
+                <h3>Sinistres</h3>
+                <p class="statistique-valeur"
+                   th:text="${nombreSinistres}">0</p>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- Utilisateurs -->
+    <section>
+        <h2>Utilisateurs par rôle</h2>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Rôle</th>
+                <th>Nombre</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="e : ${utilisateursParRole}">
+                <td th:text="${e.key}">CLIENT</td>
+                <td th:text="${e.value}">0</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Clients par type d'assurance -->
+    <section>
+        <h2>Répartition des clients par type d'assurance</h2>
+
+        <p class="statistiques-note">
+            Un client ayant plusieurs types de contrats peut apparaître
+            dans plusieurs lignes.
+        </p>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Type d'assurance</th>
+                <th>Nombre de clients distincts</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="type : ${clientsParType}">
+                <td th:text="${type.nom}">Assurance</td>
+                <td th:text="${type.nombre}">0</td>
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(clientsParType)}">
+                <td colspan="2">
+                    Aucun contrat associé à un type d'assurance.
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Contrats par type -->
+    <section>
+        <h2>Contrats par type d'assurance</h2>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Type d'assurance</th>
+                <th>Nombre de contrats</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="type : ${contratsParType}">
+                <td th:text="${type.nom}">Assurance</td>
+                <td th:text="${type.nombre}">0</td>
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(contratsParType)}">
+                <td colspan="2">Aucun contrat enregistré.</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Contrats par statut -->
+    <section>
+        <h2>Contrats par statut</h2>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Statut</th>
+                <th>Nombre</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="e : ${contratsParStatut}">
+                <td th:text="${e.key}">ACTIF</td>
+                <td th:text="${e.value}">0</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Évolution des contrats -->
+    <section>
+        <h2>Évolution mensuelle des contrats</h2>
+
+        <p class="statistiques-note">
+            Nombre de contrats dont la date de début se situe dans chaque mois,
+            sur les six derniers mois, mois courant inclus.
+        </p>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Mois</th>
+                <th>Nombre de contrats créés</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="ligne : ${contratsParMois}">
+                <td th:text="${ligne.mois}">Mois</td>
+                <td th:text="${ligne.nombre}">0</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Sinistres -->
+    <section>
+        <h2>Sinistres par statut</h2>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Statut</th>
+                <th>Nombre</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="e : ${sinistresParStatut}">
+                <td th:text="${e.key}">DECLARE</td>
+                <td th:text="${e.value}">0</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Finances -->
+    <section>
+        <h2>Indicateurs financiers</h2>
+
+        <div class="statistiques-cartes">
+
+            <article class="statistique-carte">
+                <h3>Total des primes contractuelles</h3>
+                <p class="statistique-valeur">
+                    <span th:text="${#numbers.formatDecimal(totalPrimes, 1, 2)}">
+                        0,00
+                    </span>
+                    €
+                </p>
+            </article>
+
+            <article class="statistique-carte">
+                <h3>Total des paiements effectués</h3>
+                <p class="statistique-valeur">
+                    <span th:text="${#numbers.formatDecimal(totalPaiementsEffectues, 1, 2)}">
+                        0,00
+                    </span>
+                    €
+                </p>
+            </article>
+
+            <article class="statistique-carte">
+                <h3>Total des montants estimés des sinistres</h3>
+                <p class="statistique-valeur">
+                    <span th:text="${#numbers.formatDecimal(totalMontantsEstimes, 1, 2)}">
+                        0,00
+                    </span>
+                    €
+                </p>
+            </article>
+
+            <article class="statistique-carte">
+                <h3>Total des indemnisations enregistrées</h3>
+                <p class="statistique-valeur">
+                    <span th:text="${#numbers.formatDecimal(totalIndemnisations, 1, 2)}">
+                        0,00
+                    </span>
+                    €
+                </p>
+            </article>
+
+        </div>
+
+        <p class="statistiques-note">
+            Les primes contractuelles représentent les montants associés
+            aux contrats. Les paiements effectués sont calculés séparément
+            à partir des paiements dont le statut est EFFECTUE.
+        </p>
+    </section>
+
+    <!-- Évolution des paiements -->
+    <section>
+        <h2>Évolution mensuelle des paiements effectués</h2>
+
+        <p class="statistiques-note">
+            Seuls les paiements enregistrés avec le statut EFFECTUE sont
+            pris en compte dans cette évolution.
+        </p>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Mois</th>
+                <th>Montant des paiements effectués</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="ligne : ${paiementsParMois}">
+                <td th:text="${ligne.mois}">Mois</td>
+                <td>
+                    <span th:text="${#numbers.formatDecimal(ligne.montant, 1, 2)}">
+                        0,00
+                    </span>
+                    €
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+</main>
+
+</body>
+</html>

@@ -34,7 +34,9 @@
         <a th:href="@{/admin/accueil}">Accueil</a>
         <a th:href="@{/admin/utilisateurs}">Utilisateurs</a>
         <a th:href="@{/admin/types}">Types d'assurance</a>
-        <a th:href="@{/admin/statistiques}">Statistiques gloables</a>
+        <a th:href="@{/admin/contrats}">Contrats</a>
+        <a th:href="@{/admin/sinistres}">Sinistres</a>
+        <a th:href="@{/admin/statistiques}">Statistiques globales</a>
     </nav>
 
     <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">

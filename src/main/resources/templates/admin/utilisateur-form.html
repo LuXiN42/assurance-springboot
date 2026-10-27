@@ -5,7 +5,7 @@
 <header th:replace="~{fragments/layout :: header}"></header>
 <main>
     <div th:replace="~{fragments/layout :: messages}"></div>
-    <h1 th:text="${utilisateur.id == null} ? 'Nouvel utilisateur' : 'Modifier l''utilisateur'"></h1>
+    <h1 th:text="${utilisateur.id == null} ? 'Nouvel utilisateur' : 'Modifier l\'utilisateur'"></h1>
 
     <form th:action="@{/admin/utilisateurs/enregistrer}" method="post">
         <input type="hidden" name="id" th:value="${utilisateur.id}">
