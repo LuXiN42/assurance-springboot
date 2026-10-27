@@ -3,7 +3,7 @@
 <head th:replace="~{fragments/layout :: head('Type d’assurance')}"></head>
 <body>
 <header th:replace="~{fragments/layout :: header}"></header>
-<main>
+<main class="page">
     <div th:replace="~{fragments/layout :: messages}"></div>
     <h1 th:text="${type.id == null} ? 'Nouveau type' : 'Modifier le type'"></h1>
 
@@ -31,5 +31,6 @@
         <a th:href="@{/admin/types}">Annuler</a>
     </form>
 </main>
+<th:block th:replace="~{fragments/layout :: pied}"></th:block>
 </body>
 </html>

@@ -1,58 +1,173 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head th:fragment="head(titre)">
     <meta charset="UTF-8">
-    <title th:text="${titre} + ' - Assurance'">Assurance</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="_csrf" th:if="${_csrf != null}" th:content="${_csrf.token}">
+    <title th:text="${titre} + ' · B\'Care'">B'Care</title>
+    <link rel="icon" type="image/svg+xml" th:href="@{/favicon.svg}">
+    <link rel="stylesheet" th:href="@{/css/bcare.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
+
+<head th:fragment="head-public(titre)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="_csrf" th:if="${_csrf != null}" th:content="${_csrf.token}">
+    <title th:text="${titre} + ' · B\'Care'">B'Care</title>
+    <link rel="icon" type="image/svg+xml" th:href="@{/favicon.svg}">
+    <link rel="stylesheet" th:href="@{/css/bcare.css}">
+    <link rel="stylesheet" th:href="@{/css/public.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
 <body>
 
-<header th:fragment="header">
-    <div class="logo">Assurance</div>
+<th:block th:fragment="header">
+    <th:block th:replace="~{fragments/layout :: barre(false)}"></th:block>
+</th:block>
 
-    <nav sec:authorize="hasRole('CLIENT')">
-        <a th:href="@{/client/accueil}">Accueil</a>
-        <a th:href="@{/client/contrats}">Mes contrats</a>
-        <a th:href="@{/client/sinistres}">Mes sinistres</a>
-        <a th:href="@{/client/paiements}">Mes paiements</a>
-        <a th:href="@{/client/profil}">Mon profil</a>
-    </nav>
+<th:block th:fragment="header-sombre">
+    <th:block th:replace="~{fragments/layout :: barre(true)}"></th:block>
+</th:block>
 
-    <nav sec:authorize="hasRole('AGENT')">
-        <a th:href="@{/agent/accueil}">Accueil</a>
-        <a th:href="@{/agent/clients}">Clients</a>
-        <a th:href="@{/agent/contrats}">Contrats</a>
-        <a th:href="@{/agent/garanties}">Garanties</a>
-        <a th:href="@{/agent/sinistres}">Sinistres</a>
-        <a th:href="@{/agent/paiements}">Paiements</a>
-        <a th:href="@{/agent/statistiques}">Statistiques</a>
-    </nav>
+<th:block th:fragment="barre(sombre)">
+<nav class="nav" th:classappend="${sombre} ? 'sombre'">
+    <a class="marque" th:href="@{/}">
+        <span class="logo"><span class="b">B</span><span class="c">care</span></span>
+        <span class="mot">B<span class="apos">'</span><span class="care">Care</span></span>
+    </a>
 
-    <nav sec:authorize="hasRole('ADMIN')">
-        <a th:href="@{/admin/accueil}">Accueil</a>
-        <a th:href="@{/admin/utilisateurs}">Utilisateurs</a>
-        <a th:href="@{/admin/types}">Types d'assurance</a>
-        <a th:href="@{/admin/contrats}">Contrats</a>
-        <a th:href="@{/admin/sinistres}">Sinistres</a>
-        <a th:href="@{/admin/statistiques}">Statistiques globales</a>
-    </nav>
+    <ul class="liens">
+        <th:block sec:authorize="hasRole('CLIENT')">
+            <li><a th:href="@{/client/accueil}">Accueil</a></li>
+            <li><a th:href="@{/client/contrats}">Mes contrats</a></li>
+            <li><a th:href="@{/client/sinistres}">Mes sinistres</a></li>
+            <li><a th:href="@{/client/paiements}">Mes paiements</a></li>
+            <li><a th:href="@{/client/assistant}">Bibi</a></li>
+        </th:block>
+        <th:block sec:authorize="hasRole('AGENT')">
+            <li><a th:href="@{/agent/accueil}">Accueil</a></li>
+            <li><a th:href="@{/agent/clients}">Clients</a></li>
+            <li><a th:href="@{/agent/contrats}">Contrats</a></li>
+            <li><a th:href="@{/agent/sinistres}">Sinistres</a></li>
+            <li><a th:href="@{/agent/garanties}">Garanties</a></li>
+            <li><a th:href="@{/agent/paiements}">Paiements</a></li>
+            <li><a th:href="@{/agent/statistiques}">Statistiques</a></li>
+        </th:block>
+        <th:block sec:authorize="hasRole('ADMIN')">
+            <li><a th:href="@{/admin/accueil}">Accueil</a></li>
+            <li><a th:href="@{/admin/utilisateurs}">Utilisateurs</a></li>
+            <li><a th:href="@{/admin/types}">Types d'assurance</a></li>
+            <li><a th:href="@{/admin/contrats}">Contrats</a></li>
+            <li><a th:href="@{/admin/sinistres}">Sinistres</a></li>
+            <li><a th:href="@{/admin/statistiques}">Statistiques</a></li>
+        </th:block>
+        <th:block sec:authorize="!isAuthenticated()">
+            <li><a href="/#offres">Nos assurances</a></li>
+            <li><a href="/#etapes">Comment ça marche</a></li>
+            <li><a href="/#assistant">Bibi</a></li>
+        </th:block>
+    </ul>
 
-    <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
-        <button type="submit">Se déconnecter</button>
-    </form>
-</header>
+    <div class="droite">
+        <th:block sec:authorize="isAuthenticated()">
+            <a class="moi" sec:authorize="hasRole('CLIENT')" th:href="@{/client/profil}" title="Mon profil">
+                <span class="initiale" th:text="${#strings.toUpperCase(#strings.substring(#authentication.principal.prenom, 0, 1))}">J</span>
+                <span sec:authentication="principal.prenom">Prénom</span>
+            </a>
+            <span class="moi" sec:authorize="!hasRole('CLIENT')">
+                <span class="initiale" th:text="${#strings.toUpperCase(#strings.substring(#authentication.principal.prenom, 0, 1))}">J</span>
+                <span sec:authentication="principal.prenom">Prénom</span>
+            </span>
+            <button type="button" class="deco" data-modale="modale-deco" title="Déconnexion">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v9"/><path d="M6.4 6.4a8 8 0 1 0 11.2 0"/></svg>
+                <span>Déconnexion</span>
+            </button>
+        </th:block>
+        <th:block sec:authorize="!isAuthenticated()">
+            <a class="btn btn-leger" th:href="@{/login}">Se connecter</a>
+            <a class="btn" th:href="@{/inscription}">Créer un compte</a>
+        </th:block>
+    </div>
+</nav>
+
+<div class="modale" id="modale-deco" hidden sec:authorize="isAuthenticated()">
+    <div class="modale-fond" data-fermer></div>
+    <div class="modale-boite">
+        <span class="ico-rond"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v9"/><path d="M6.4 6.4a8 8 0 1 0 11.2 0"/></svg></span>
+        <h3>Se déconnecter ?</h3>
+        <p>Vous devrez vous reconnecter pour revenir sur votre espace.</p>
+        <form class="modale-actions" th:action="@{/logout}" method="post">
+            <button type="button" class="btn-leger" data-fermer>Annuler</button>
+            <button type="submit" class="btn-rouge">Me déconnecter</button>
+        </form>
+    </div>
+</div>
+</th:block>
 
 <div th:fragment="messages">
-    <div class="alert alert-success" th:if="${succes}" th:text="${succes}"></div>
-    <div class="alert alert-error" th:if="${erreur}" th:text="${erreur}"></div>
+    <p class="alerte ok" th:if="${succes}" th:text="${succes}"></p>
+    <p class="alerte ko" th:if="${erreur}" th:text="${erreur}"></p>
 </div>
 
-<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" 
-    integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" 
-    data-cf-beacon='{"version":"2024.11.0","token":"8607d2a720d14b038279025b2b5a82e5","spa":2}' 
-    crossorigin="anonymous">    
-</script>
+<th:block th:fragment="pied">
+    <div class="taches"><span></span><span></span></div>
+    <footer class="pied">
+        <span class="marque"><span class="mot">B<span class="apos">'</span><span class="care">Care</span></span></span>
+        <span>© 2026 · Projet Spring Boot CY Tech</span>
+    </footer>
+    <th:block sec:authorize="hasRole('CLIENT')">
+        <th:block th:replace="~{fragments/layout :: bibi('')}"></th:block>
+    </th:block>
+    <script th:src="@{/js/bcare.js}"></script>
+</th:block>
+
+<th:block th:fragment="pied-simple">
+    <div class="taches"><span></span><span></span></div>
+    <footer class="pied">
+        <span class="marque"><span class="mot">B<span class="apos">'</span><span class="care">Care</span></span></span>
+        <span>© 2026 · Projet Spring Boot CY Tech</span>
+    </footer>
+    <script th:src="@{/js/bcare.js}"></script>
+</th:block>
+
+<div th:fragment="bibi(classe)" class="bibi" th:classappend="${classe}" th:attr="data-url=@{/client/assistant}">
+    <button type="button" class="bibi-bulle" data-bibi="ouvrir">
+        <span class="bibi-avatar">B</span>Bibi
+    </button>
+
+    <section class="bibi-fenetre">
+        <header class="bibi-tete">
+            <span class="bibi-avatar">B</span>
+            <div class="titre"><b>Bibi</b><small>Assistant B'Care · en ligne</small></div>
+            <button type="button" data-bibi="effacer" title="Nouvelle conversation">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
+            </button>
+            <button type="button" data-bibi="reduire" title="Réduire">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+        </header>
+
+        <div class="bibi-messages"></div>
+
+        <div class="bibi-suggestions">
+            <button type="button">Quels sont mes contrats ?</button>
+            <button type="button">Suis-je couvert contre le vol ?</button>
+            <button type="button">Comment déclarer un sinistre ?</button>
+            <button type="button">Où en est mon dernier sinistre ?</button>
+        </div>
+
+        <form class="bibi-saisie">
+            <input name="question" maxlength="500" placeholder="Écrivez à Bibi…" autocomplete="off" required>
+            <button type="submit" title="Envoyer">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+            </button>
+        </form>
+    </section>
+</div>
 
 </body>
 </html>

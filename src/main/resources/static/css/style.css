@@ -1,26 +1,41 @@
-* { box-sizing: border-box; }
-body { margin: 0; font-family: Arial, sans-serif; background: #f4f6f9; color: #222; }
-header { background: #1f3a5f; color: #fff; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 56px; }
-header .logo { font-weight: bold; font-size: 18px; }
-nav a { color: #fff; text-decoration: none; margin-right: 18px; }
-nav a:hover { text-decoration: underline; }
-header form { margin: 0; }
-header button { background: #c0392b; color: #fff; border: 0; padding: 8px 14px; border-radius: 4px; cursor: pointer; }
-main { max-width: 1000px; margin: 24px auto; padding: 0 16px; }
-h1 { margin-top: 0; }
-.card { background: #fff; border-radius: 6px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.12); margin-bottom: 16px; }
-table { width: 100%; border-collapse: collapse; background: #fff; }
-th, td { padding: 10px; border-bottom: 1px solid #e2e6ea; text-align: left; }
-th { background: #eef1f5; }
-.btn { display: inline-block; background: #1f3a5f; color: #fff; padding: 8px 14px; border-radius: 4px; text-decoration: none; border: 0; cursor: pointer; font-size: 14px; }
-.btn:hover { background: #2c5282; }
-.btn-danger { background: #c0392b; }
-.btn-secondary { background: #6c757d; }
-.alert { padding: 10px 14px; border-radius: 4px; margin-bottom: 14px; }
-.alert-success { background: #d4edda; color: #155724; }
-.alert-error { background: #f8d7da; color: #721c24; }
-form label { display: block; margin-top: 12px; font-weight: bold; }
-form input, form select, form textarea { width: 100%; padding: 8px; margin-top: 4px; border: 1px solid #ccc; border-radius: 4px; }
-.erreur { color: #c0392b; font-size: 13px; }
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
-.badge { padding: 3px 8px; border-radius: 10px; font-size: 12px; background: #e2e6ea; }
+/* Complément de bcare.css pour les classes propres aux pages Spring Boot */
+
+.card {
+    background: rgba(255, 255, 255, .85); border: 1px solid rgba(255, 255, 255, .95); border-radius: var(--rayon);
+    box-shadow: var(--ombre); padding: 24px; margin: 16px 0;
+}
+.card h2 { margin-top: 0; }
+.card table { box-shadow: none; padding: 0; background: transparent; }
+.card form label { display: block; margin-top: 12px; }
+.card form input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),
+.card form select,
+.card form textarea { display: block; width: 100%; margin-top: 6px; }
+.card form button { margin-top: 18px; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 16px 0; }
+.grid .card { margin: 0; }
+
+.btn-danger { background: var(--rouge); box-shadow: 0 6px 18px rgba(214, 69, 80, .25); }
+.btn-danger:hover { background: #bf3a45; }
+.btn-secondary { background: #efeef3; color: var(--encre); box-shadow: none; }
+.btn-secondary:hover { background: #e2e0ea; color: var(--encre); }
+
+.badge { display: inline-block; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; background: var(--violet-50); color: var(--violet-700); }
+.erreur { color: #b23440; font-size: 13px; }
+
+/* tableau de bord admin */
+.statistiques-page section {
+    margin: 24px 0; padding: 24px; border-radius: var(--rayon);
+    background: rgba(255, 255, 255, .85); border: 1px solid rgba(255, 255, 255, .95); box-shadow: var(--ombre);
+}
+.statistiques-page section h2 { margin-top: 0; }
+.statistiques-page section table { box-shadow: none; padding: 0; background: transparent; }
+.statistiques-cartes { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; }
+.statistique-carte { padding: 18px; border-radius: 18px; background: var(--violet-50); transition: transform .3s; }
+.statistique-carte:hover { transform: translateY(-3px); }
+.statistique-carte h3 { margin: 0 0 6px; font-size: 14px; color: var(--gris); font-weight: 600; }
+.statistique-valeur { font-size: 28px; font-weight: 700; letter-spacing: -.03em; color: var(--violet-700); }
+.statistiques-note { color: var(--gris); font-size: 13.5px; }
+
+/* champs d'inscription en erreur */
+.page-auth .erreur { display: block; margin-top: 4px; color: #b23440; }

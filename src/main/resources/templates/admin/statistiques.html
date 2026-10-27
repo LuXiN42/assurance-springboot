@@ -7,7 +7,7 @@
 
 <header th:replace="~{fragments/layout :: header}"></header>
 
-<main class="statistiques-page">
+<main class="page statistiques-page">
 
     <h1>Tableau de bord — Statistiques globales</h1>
 
@@ -16,78 +16,6 @@
         clients, contrats, sinistres et finances.
     </p>
 
-    <style>
-        .statistiques-page {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1.5rem;
-        }
-
-        .statistiques-page section {
-            margin: 2rem 0;
-            padding: 1.25rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-        }
-
-        .statistiques-page h2 {
-            margin-top: 0;
-        }
-
-        .statistiques-cartes {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-            gap: 1rem;
-        }
-
-        .statistique-carte {
-            padding: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-        }
-
-        .statistique-carte h3 {
-            margin-top: 0;
-            font-size: 1rem;
-        }
-
-        .statistique-valeur {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .statistiques-page table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-
-        .statistiques-page th,
-        .statistiques-page td {
-            padding: 0.7rem;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-
-        .statistiques-page th {
-            background: #f4f4f4;
-        }
-
-        .statistiques-note {
-            color: #555;
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 600px) {
-            .statistiques-page {
-                padding: 0.75rem;
-            }
-
-            .statistiques-page table {
-                font-size: 0.9rem;
-            }
-        }
-    </style>
 
     <!-- Vue d'ensemble -->
     <section>
@@ -360,5 +288,6 @@
 
 </main>
 
+<th:block th:replace="~{fragments/layout :: pied}"></th:block>
 </body>
 </html>

@@ -17,7 +17,7 @@ public class AccueilController {
 
     @GetMapping("/")
     public String racine() {
-        return "redirect:/login";
+        return "index";
     }
 
     @GetMapping("/agent/accueil")

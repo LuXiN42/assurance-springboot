@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"><head th:replace="~{fragments/layout :: head('Contrat')}"></head><body>
-<header th:replace="~{fragments/layout :: header}"></header><main><div th:replace="~{fragments/layout :: messages}"></div><h1 th:text="${contrat.id == null ? 'Nouveau contrat' : 'Modifier le contrat'}"></h1>
+<header th:replace="~{fragments/layout :: header}"></header><main class="page"><div th:replace="~{fragments/layout :: messages}"></div><h1 th:text="${contrat.id == null ? 'Nouveau contrat' : 'Modifier le contrat'}"></h1>
 <form th:action="@{/admin/contrats/enregistrer}" method="post"><input type="hidden" name="id" th:value="${contrat.id}"/>
 <label>Numéro <input name="numeroContrat" required="required" maxlength="80" th:value="${contrat.numeroContrat}"/></label>
 <label>Client <select name="clientId" required="required"><option value="">Choisir</option><option th:each="c : ${clients}" th:value="${c.id}" th:selected="${clientId != null ? clientId == c.id : contrat.client != null and contrat.client.id == c.id}" th:text="${c.prenom + ' ' + c.nom + ' — ' + c.email}"></option></select></label>
@@ -8,5 +8,6 @@
 <label>Date de début <input type="date" name="dateDebut" required="required" th:value="${contrat.dateDebut}"/></label><label>Date de fin <input type="date" name="dateFin" th:value="${contrat.dateFin}"/></label>
 <label>Prime <input type="number" name="prime" min="0.01" step="0.01" required="required" th:value="${contrat.prime}"/></label>
 <label>Statut <select name="statut" required="required"><option th:each="s : ${statuts}" th:value="${s}" th:selected="${contrat.statut == s}" th:text="${s}"></option></select></label>
-<button type="submit">Enregistrer</button> <a th:href="@{/admin/contrats}">Annuler</a></form></main><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"8607d2a720d14b038279025b2b5a82e5","spa":2}' crossorigin="anonymous"></script>
+<button type="submit">Enregistrer</button> <a th:href="@{/admin/contrats}">Annuler</a></form></main>
+<th:block th:replace="~{fragments/layout :: pied}"></th:block>
 </body></html>

@@ -1,0 +1,3 @@
+# Copier ce fichier en "ia.properties" (dans le même dossier) et y mettre sa clé Gemini.
+# ia.properties n'est pas envoyé sur GitHub.
+gemini.api.key=COLLE_TA_CLE_ICI

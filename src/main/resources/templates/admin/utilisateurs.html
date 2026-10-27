@@ -3,7 +3,7 @@
 <head th:replace="~{fragments/layout :: head('Utilisateurs')}"></head>
 <body>
 <header th:replace="~{fragments/layout :: header}"></header>
-<main>
+<main class="page">
     <div th:replace="~{fragments/layout :: messages}"></div>
     <h1>Utilisateurs</h1>
     <p><a class="btn" th:href="@{/admin/utilisateurs/nouveau}">+ Nouvel utilisateur</a></p>
@@ -32,5 +32,6 @@
         </tbody>
     </table>
 </main>
+<th:block th:replace="~{fragments/layout :: pied}"></th:block>
 </body>
 </html>

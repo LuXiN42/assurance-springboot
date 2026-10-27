@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('Erreur')}"></head>
+<body>
+<th:block th:replace="~{fragments/layout :: header-sombre}"></th:block>
+<th:block th:with="code=${status != null ? status : 500}">
+<main class="espace-hero page-erreur">
+    <div class="aurore"><span></span><span></span><span></span></div>
+    <div class="espace-in">
+        <div class="code apparait d1" th:text="${code}">404</div>
+        <th:block th:switch="${code}">
+            <th:block th:case="404">
+                <h1 class="apparait d2">Cette page n'existe pas.</h1>
+                <p class="apparait d3">Le lien est peut-être cassé, ou la page a été déplacée.</p>
+            </th:block>
+            <th:block th:case="403">
+                <h1 class="apparait d2">Vous n'avez pas accès à cette page.</h1>
+                <p class="apparait d3">Elle est réservée à un autre type de compte.</p>
+            </th:block>
+            <th:block th:case="*">
+                <h1 class="apparait d2">Oups, quelque chose s'est mal passé.</h1>
+                <p class="apparait d3">Le problème vient de chez nous. Réessayez dans quelques instants.</p>
+            </th:block>
+        </th:block>
+        <div class="boutons apparait d4">
+            <a class="btn btn-blanc btn-grand" sec:authorize="hasRole('CLIENT')" th:href="@{/client/accueil}">Retour à l'accueil</a>
+            <a class="btn btn-blanc btn-grand" sec:authorize="hasRole('AGENT')" th:href="@{/agent/accueil}">Retour à l'accueil</a>
+            <a class="btn btn-blanc btn-grand" sec:authorize="hasRole('ADMIN')" th:href="@{/admin/accueil}">Retour à l'accueil</a>
+            <a class="btn btn-blanc btn-grand" sec:authorize="!isAuthenticated()" th:href="@{/}">Retour à l'accueil</a>
+            <a class="btn btn-leger btn-grand" href="javascript:history.back()">Page précédente</a>
+        </div>
+    </div>
+</main>
+</th:block>
+
+<th:block th:replace="~{fragments/layout :: pied-simple}"></th:block>
+</body>
+</html>

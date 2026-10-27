@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Bibi')}"></head>
+<body>
+<th:block th:replace="~{fragments/layout :: header}"></th:block>
+
+<main class="page">
+    <h1>Bibi, votre assistant</h1>
+    <p>Posez une question sur vos contrats, vos garanties ou vos sinistres. Bibi connaît votre dossier et vous répond à toute heure.</p>
+
+    <div th:replace="~{fragments/layout :: bibi('bibi-page')}"></div>
+</main>
+
+<th:block th:replace="~{fragments/layout :: pied-simple}"></th:block>
+</body>
+</html>

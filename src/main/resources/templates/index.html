@@ -1,11 +1,122 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title th:text="${titre}">Accueil</title>
-</head>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head-public('Votre espace assurance')}"></head>
 <body>
-    <h1 th:text="${titre}">Accueil</h1>
-    <p>Application Spring Boot démarrée.</p>
+<th:block th:replace="~{fragments/layout :: header-sombre}"></th:block>
+
+<header class="hero">
+    <div class="aurore"><span></span><span></span><span></span></div>
+    <div class="grain"></div>
+
+    <div class="hero-in">
+        <div>
+            <span class="pastille apparait d1"><i></i>Votre espace assurance, en ligne</span>
+            <h1 class="apparait d2">Soyez serein.<br><em>On veille sur le reste.</em></h1>
+            <p class="chapo apparait d3">Contrats, sinistres, paiements : tout est réuni au même endroit, clair et suivi en temps réel.</p>
+            <div class="boutons apparait d4">
+                <a class="btn btn-blanc btn-grand" sec:authorize="hasRole('CLIENT')" th:href="@{/client/accueil}">Accéder à mon espace</a>
+                <a class="btn btn-blanc btn-grand" sec:authorize="hasRole('AGENT')" th:href="@{/agent/accueil}">Accéder à mon espace</a>
+                <a class="btn btn-blanc btn-grand" sec:authorize="hasRole('ADMIN')" th:href="@{/admin/accueil}">Accéder à mon espace</a>
+                <a class="btn btn-blanc btn-grand" sec:authorize="!isAuthenticated()" th:href="@{/inscription}">Créer mon compte</a>
+                <a class="btn btn-leger btn-grand" href="#offres">Voir les offres</a>
+            </div>
+            <div class="confiance apparait d4">
+                <div><strong>5</strong>types d'assurance</div>
+                <div><strong>24h/24</strong>déclaration en ligne</div>
+                <div><strong>1 espace</strong>pour tout suivre</div>
+            </div>
+        </div>
+
+        <div class="apercu apparait d3">
+            <div class="bloc">
+                <div class="tete">Mes contrats <small>Exemple d'espace client</small></div>
+                <div class="contrat">
+                    <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M6 17l1.5-5h9L18 17M7.5 12l1.5-4h6l1.5 4"/><circle cx="8" cy="17" r="1.6"/><circle cx="16" cy="17" r="1.6"/></svg></span>
+                    <div class="txt"><b>Assurance automobile</b><span>RC, Vol, Accident</span></div>
+                    <span class="statut">Actif</span>
+                </div>
+                <div class="contrat">
+                    <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-6 8 6v8a1 1 0 0 1-1 1h-4v-5h-6v5H5a1 1 0 0 1-1-1z"/></svg></span>
+                    <div class="txt"><b>Assurance habitation</b><span>Incendie, Dégâts des eaux</span></div>
+                    <span class="statut">Actif</span>
+                </div>
+                <div class="suivi">
+                    <div class="l"><b>Sinistre en cours</b><span>Dégât des eaux</span></div>
+                    <div class="etapes"><i class="ok"></i><i class="ok"></i><i></i><i></i></div>
+                    <div class="etapes-noms"><span>Déclaré</span><span>En analyse</span><span>Accepté</span><span>Indemnisé</span></div>
+                </div>
+            </div>
+            <div class="bulle">
+                <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></span>
+                Votre dossier est en cours d'analyse par un conseiller.
+            </div>
+        </div>
+    </div>
+
+    <a class="descendre" href="#offres">
+        <span class="rond"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+        Découvrir
+    </a>
+</header>
+
+<section class="bloc-public" id="offres">
+    <div class="titre-section r bas">
+        <h2>Une assurance pour chaque moment de vie</h2>
+        <p>Choisissez les garanties dont vous avez besoin, rien de plus.</p>
+    </div>
+    <div class="offres">
+        <div class="offre verre r bas">
+            <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M6 17l1.5-5h9L18 17M7.5 12l1.5-4h6l1.5 4"/><circle cx="8" cy="17" r="1.6"/><circle cx="16" cy="17" r="1.6"/></svg></span>
+            <h3>Automobile</h3><p>Responsabilité civile, vol, accident.</p><div class="prix">dès 480 € / an</div>
+        </div>
+        <div class="offre verre r bas">
+            <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-6 8 6v8a1 1 0 0 1-1 1h-4v-5h-6v5H5a1 1 0 0 1-1-1z"/></svg></span>
+            <h3>Habitation</h3><p>Incendie, dégâts des eaux, vol.</p><div class="prix">dès 320 € / an</div>
+        </div>
+        <div class="offre verre r bas">
+            <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></span>
+            <h3>Santé</h3><p>Complémentaire pour vous et votre famille.</p><div class="prix">dès 290 € / an</div>
+        </div>
+        <div class="offre verre r bas">
+            <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14l-6 2 1-3 5-2V6a2 2 0 0 1 4 0v5l5 2 1 3-6-2v4l2 2h-8l2-2z"/></svg></span>
+            <h3>Voyage</h3><p>Assistance et annulation, partout.</p><div class="prix">dès 250 € / an</div>
+        </div>
+        <div class="offre verre r bas">
+            <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg></span>
+            <h3>Professionnelle</h3><p>Responsabilité civile pro.</p><div class="prix">dès 310 € / an</div>
+        </div>
+    </div>
+</section>
+
+<section class="bloc-public" id="etapes">
+    <div class="titre-section r bas">
+        <h2>Simple, du début à la fin</h2>
+        <p>Pas de paperasse, pas d'attente au téléphone.</p>
+    </div>
+    <div class="etapes-grandes">
+        <div class="etape verre r gauche"><span class="num">1</span><h3>Souscrivez</h3><p>Un conseiller crée votre contrat avec les garanties choisies.</p></div>
+        <div class="etape verre r bas"><span class="num">2</span><h3>Déclarez</h3><p>Un souci ? Déclarez votre sinistre en ligne et ajoutez vos justificatifs.</p></div>
+        <div class="etape verre r droite"><span class="num">3</span><h3>Suivez</h3><p>Voyez où en est votre dossier, étape par étape, jusqu'à l'indemnisation.</p></div>
+    </div>
+</section>
+
+<section class="bloc-public" id="assistant">
+    <div class="ia r zoom">
+        <div>
+            <h2>Une question ? Demandez à Bibi.</h2>
+            <p>Bibi, c'est notre assistant : il connaît vos contrats et vos dossiers, et vous répond à toute heure.</p>
+            <a class="btn btn-blanc btn-grand" th:href="@{/client/assistant}">Discuter avec Bibi</a>
+        </div>
+        <div class="chat">
+            <div class="msg moi r droite">Est-ce que je suis couvert contre le vol ?</div>
+            <div class="msg lui r gauche">Oui, pour votre voiture : la garantie Vol est incluse dans votre contrat auto.</div>
+            <div class="msg moi r droite">Et pour mon appartement ?</div>
+            <div class="msg lui r gauche">Non, votre contrat habitation couvre l'incendie et les dégâts des eaux, mais pas le vol.</div>
+        </div>
+    </div>
+</section>
+
+<th:block th:replace="~{fragments/layout :: pied}"></th:block>
 </body>
 </html>

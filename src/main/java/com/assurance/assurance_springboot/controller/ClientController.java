@@ -21,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
@@ -127,9 +128,10 @@ public class ClientController {
     }
 
     @ExceptionHandler(BusinessException.class)
-    public ResponseEntity<String> accesRefuse(BusinessException exception) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).contentType(MediaType.TEXT_PLAIN)
-                .body(exception.getMessage());
+    public ModelAndView accesRefuse(BusinessException exception) {
+        ModelAndView vue = new ModelAndView("error", HttpStatus.FORBIDDEN);
+        vue.addObject("status", 403);
+        return vue;
     }
 
     @GetMapping("/profil")

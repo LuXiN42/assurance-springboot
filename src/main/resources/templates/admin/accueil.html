@@ -1,12 +1,51 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/layout :: head('Accueil administrateur')}"></head>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Espace administrateur')}"></head>
 <body>
-<header th:replace="~{fragments/layout :: header}"></header>
+<th:block th:replace="~{fragments/layout :: header-sombre}"></th:block>
 <main>
-    <div th:replace="~{fragments/layout :: messages}"></div>
-    <h1>Bonjour <span th:text="${prenom}">Prénom</span> !</h1>
-    <div class="card">Espace administrateur</div>
+    <header class="espace-hero">
+        <div class="aurore"><span></span><span></span><span></span></div>
+        <div class="espace-in">
+            <span class="pastille apparait d1"><i></i>Espace administrateur</span>
+            <h1 class="apparait d2">Bonjour <span th:text="${prenom}">Prénom</span>,<br><em>tout est sous contrôle.</em></h1>
+            <p class="apparait d3">Utilisateurs, offres et vue d'ensemble de l'activité.</p>
+        </div>
+    </header>
+
+    <div class="tuiles">
+        <a class="tuile" th:href="@{/admin/utilisateurs}">
+            <span class="ico-xl"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5a6.5 6.5 0 0 1 3.5 5.5"/></svg></span>
+            <b>Utilisateurs</b>
+            <small>Clients, agents et administrateurs</small>
+        </a>
+        <a class="tuile mise-en-avant" th:href="@{/admin/utilisateurs/nouveau}">
+            <span class="ico-xl"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M19 8v6M16 11h6"/></svg></span>
+            <b>Créer un utilisateur</b>
+            <small>Ajouter un agent ou un client</small>
+        </a>
+        <a class="tuile" th:href="@{/admin/types}">
+            <span class="ico-xl"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg></span>
+            <b>Types d'assurance</b>
+            <small>Les offres proposées</small>
+        </a>
+        <a class="tuile" th:href="@{/admin/contrats}">
+            <span class="ico-xl"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></span>
+            <b>Tous les contrats</b>
+            <small>Vue sur l'ensemble des contrats</small>
+        </a>
+        <a class="tuile" th:href="@{/admin/sinistres}">
+            <span class="ico-xl"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+            <b>Tous les sinistres</b>
+            <small>Suivi de tous les dossiers</small>
+        </a>
+        <a class="tuile" th:href="@{/admin/statistiques}">
+            <span class="ico-xl"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
+            <b>Statistiques globales</b>
+            <small>L'activité de B'Care en chiffres</small>
+        </a>
+    </div>
 </main>
+<th:block th:replace="~{fragments/layout :: pied}"></th:block>
 </body>
 </html>
