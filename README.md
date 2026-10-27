@@ -148,6 +148,24 @@ On peut aussi créer un compte client depuis la page Inscription.
 - gérer les utilisateurs (clients, agents, administrateurs)
 - gérer les types d'assurance
 - statistiques globales
+- résumé des statistiques par l'IA (bouton sur le tableau de bord)
+
+## Assistant IA (Bibi)
+
+L'IA passe par l'API Gemini de Google (modèle `gemini-flash-latest`, avec repli automatique sur `gemini-flash-lite-latest` si le premier est surchargé).
+
+**Bibi, l'assistant des clients**
+- disponible depuis une bulle en bas à droite de toutes les pages client, et sur sa page dédiée
+- à chaque question, on envoie à Gemini les contrats (garanties, statut, dates) et les sinistres du client connecté, pour qu'il réponde sur son dossier à lui
+- la conversation est gardée en session (20 derniers messages), elle suit le client de page en page
+- exemples : « Quels sont mes contrats actifs ? », « Suis-je couvert contre le vol ? », « Où en est mon dernier sinistre ? »
+
+**Résumé des statistiques par l'IA (administrateur)**
+- sur le tableau de bord admin, le bouton « Analyser les chiffres avec l'IA » envoie les indicateurs à Gemini, qui renvoie un court bilan : points forts, points à surveiller, recommandations
+
+**Configuration** : voir l'étape 4 (clé dans `ia.properties`, ou variable d'environnement `GEMINI_API_KEY`).
+
+Le code se trouve dans `AssistantIAService` (appel à Gemini) et dans `AssistantController`.
 
 ## Organisation du code
 ```text
